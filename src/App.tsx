@@ -1,16 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
-import './index.css'
+import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Category from "./pages/category";
+import Gender from "./pages/gender";
+import Home from "./pages/home";
+import Scene from "./stages/scene/scene";
+
 
 function App() {
- 
-
   return (
-    <div className="text-blue-600 text-3xl font-bold">
-     <h1>Test App</h1>
-    </div>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="gender" element={<Gender/>}/> 
+        <Route path="category" element={<Category/>}/> 
+        <Route path="scene" element={<Scene/>}/> 
+  
+      
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

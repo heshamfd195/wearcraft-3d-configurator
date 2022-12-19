@@ -1,7 +1,7 @@
 import { Color4, MeshAssetTask, Vector3 } from "@babylonjs/core";
 import "@babylonjs/inspector";
 import { sceneFragmentDeclaration } from "babylonjs/Shaders/ShadersInclude/sceneFragmentDeclaration";
-
+import axios from 'axios';
 import React, { Suspense, useContext, useEffect, useMemo, useRef, useState } from "react";
 import {
   AssetManagerContext,
@@ -14,7 +14,7 @@ import {
   useBeforeRender,
   useScene,
 } from "react-babylonjs";
-import { acMatUpdate } from "../actions/materials/mat-action";
+import { acMatOver, acMatUpdate, acMeshMatUpdate } from "../actions/materials/mat-action";
 import { AssetManagerFallback } from "../scene/AssetLoader";
 import EnvironmentSetup from "../setup/EnvironmentSetup";
 // import "../../style.css";
@@ -174,13 +174,12 @@ if(eventData?.task.isCompleted){
   );
 };
 
-const MaterialUpdate=()=>{
+const MaterialUpdate:React.FC<any>=({defMat})=>{
     let scene =useScene()
+    console.log("mat ",defMat)
     useMemo(()=>{
-  
-        acMatUpdate(scene)
-        
-    },[])
+        // acMatUpdate(scene,defMat)
+    },[defMat])
 
 return null
 }
@@ -196,21 +195,36 @@ const DebugLayer=()=>{
     return null
 }
 
-const MyModels = () => {
+const MyModels:React.FC<any> = ({matState,defMat}) => {
   const assetManagerResult = useAssetManager(meshTaskLoader);
-  
-  console.log("Mesh: ",assetManagerResult.tasks)
+  let m;
+
+
+useMemo(()=>{
+ for ( const p of meshTaskLoader){
+  console.log("Part :",p.name)
+  let part=assetManagerResult.taskNameMap[p.name] as MeshAssetTask
+  let mesh =part.loadedMeshes[0]
+  mesh.name=p.name
+   m=part.loadedMeshes[2]
+  // m.material =null
+
  
 
-// useMemo(()=>{
-//  for ( const p of meshTaskLoader){
-//   console.log("Part :",p.name)
-//   let part=assetManagerResult.taskNameMap[p.name] as MeshAssetTask
-//   let mesh =part.loadedMeshes[0]
-//   mesh.name=p.name
-//  }
 
-// },[])
+ }
+
+
+
+
+},[])
+
+
+
+  if(matState){
+    acMatOver(m,defMat)
+   }
+
 
 
 //   useMemo(() => {
@@ -228,12 +242,35 @@ const MyModels = () => {
 };
 
 const MyScene = () => {
-    const [loaded,setLoad]=useState(false)
+
+
+  const [loaded,setLoad]=useState(false)
+  const [matState,setMatState]=useState(false)
+  const [mat,SetMat]=useState({})
+
+  
+  const getData = async () => {
+    const response = await axios.get(
+      "http://localhost:5000/assetstore/defMat"
+    );
+    SetMat(response.data[0])
+    setMatState(true)
+    console.log("Def Mat Success ",response.data[0])
+
+  };
+
+
+
+
+
+  
   return (
+    <React.Fragment>
+      <button style={{backgroundColor:"red", height:50, width:100}} onClick={getData}> GET MAT</button>
     <Engine antialias adaptToDeviceRatio canvasId="babylonJS" style={{width:1000,height:1000}}>
       <Scene>
         {/* <EnvironmentSetup/> */}
-        {/* <DebugLayer/> */}
+        <DebugLayer/>
         < BackColor/>
 
         <arcRotateCamera
@@ -263,12 +300,13 @@ const MyScene = () => {
         />
         <AssetManagerContextProvider>
           <Suspense fallback={   <MyFallback onLoaded={(flag:boolean)=>{setLoad(flag) ;console.log("Yes")}}/>}>
-            <MyModels />
+           {<MyModels matState={matState} detMat={mat}/>}
           </Suspense>
         </AssetManagerContextProvider>
-     {  loaded && <MaterialUpdate/>}
+     { matState && loaded && <MaterialUpdate defMat={mat}/>}
       </Scene>
     </Engine>
+    </React.Fragment>
   );
 };
 

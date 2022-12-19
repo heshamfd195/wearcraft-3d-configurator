@@ -1,0 +1,124 @@
+{
+   
+    "panel": {
+        "mId": "mtl-ch-blk-s1",
+        "mName": "Cowhide Leather",
+        "mColor": "Black",
+        "mType": "panel",
+        "mMaps": {
+            "baseColor": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/baseColor.png",
+            "normal": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/normal.png",
+            "occlusion": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/occlusionRoughnessMetallic.png"
+        }
+    },
+    "panel_sl": {
+        "mId": "mtl-ch-blk-s1",
+        "mName": "Cowhide Leather",
+        "mColor": "Black",
+        "mType": "panel",
+        "mMaps": {
+            "baseColor": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/baseColor.png",
+            "normal": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/normal.png",
+            "occlusion": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/occlusionRoughnessMetallic.png"
+        }
+    },
+    "panel_sr": {
+        "mId": "mtl-ch-blk-s1",
+        "mName": "Cowhide Leather",
+        "mColor": "Black",
+        "mType": "panel",
+        "mMaps": {
+            "baseColor": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/baseColor.png",
+            "normal": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/normal.png",
+            "occlusion": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/occlusionRoughnessMetallic.png"
+        }
+    },
+    "panel_trm": {
+        "mId": "mtl-ch-blk-s1",
+        "mName": "Cowhide Leather",
+        "mColor": "Black",
+        "mType": "panel",
+        "mMaps": {
+            "baseColor": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/baseColor.png",
+            "normal": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/normal.png",
+            "occlusion": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/occlusionRoughnessMetallic.png"
+        }
+    },
+    "panel_pad": {
+        "mId": "mtl-ch-blk-s1",
+        "mName": "Cowhide Leather",
+        "mColor": "Black",
+        "mType": "panel",
+        "mMaps": {
+            "baseColor": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/baseColor.png",
+            "normal": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/normal.png",
+            "occlusion": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/occlusionRoughnessMetallic.png"
+        }
+    },
+    "panel_logo": {
+        "mId": "mtl-ch-blk-s1",
+        "mName": "Cowhide Leather",
+        "mColor": "Black",
+        "mType": "panel",
+        "mMaps": {
+            "baseColor": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/baseColor.png",
+            "normal": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/normal.png",
+            "occlusion": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Leather/mtl-ch-blk-s1/occlusionRoughnessMetallic.png"
+        }
+    },
+    "panel_zip": {
+        "mId": "mth-zpf-slv&blk-s1",
+        "mName": "Zipper Fabric",
+        "mColor": "Silver-Black",
+        "mType": "panel_zip",
+        "mMaps": {
+            "baseColor": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Hardware/ZipperFabric/mth-zpf-slv%26blk-s1/panel-zip_baseColor.png",
+            "normal": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Hardware/ZipperFabric/mth-zpf-slv%26blk-s1/panel-zip_normal.png",
+            "occlusion": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Hardware/ZipperFabric/mth-zpf-slv%26blk-s1/panel-zip_occlusionRoughnessMetallic.png"
+        }
+    },
+    "panel_lin": {
+        "mId": "mtln-lp-blk-s1",
+        "mName": "Lining Fabric",
+        "mColor": "Black",
+        "mType": "panel_lin",
+        "mMaps": {
+            "baseColor": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Lining/mtln-lp-blk-s1/panel-lin_baseColor.png",
+            "normal": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Lining/mtln-lp-blk-s1/panel-lin_normal.png",
+            "occlusion": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Lining/mtln-lp-blk-s1/panel-lin_occlusionRoughnessMetallic.png"
+        }
+    },
+    "stitch": {
+        "mId": "mts-st-blk-s1",
+        "mName": "Stitch Black",
+        "mColor": "Black",
+        "mType": "stitch",
+        "mMaps": {
+            "baseColor": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Stitch/mts-st-blk-s1/stitch_baseColor.png",
+            "normal": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Stitch/mts-st-blk-s1/stitch_normal.png",
+            "occlusion": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Stitch/mts-st-blk-s1/stitch_occlusionRoughnessMetallic.png"
+        }
+    },
+    "metal_zip": {
+        "mId": "mth-zpp-slv-s1",
+        "mName": "Zipper Puller Silver",
+        "mColor": "Silver",
+        "mType": "metal_zip",
+        "mMaps": {
+            "baseColor": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Hardware/ZipperPuller/mth-zpp-slv-s1/metal_baseColor.png",
+            "normal": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Hardware/ZipperPuller/mth-zpp-slv-s1/metal_normal.png",
+            "occlusion": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Hardware/ZipperPuller/mth-zpp-slv-s1/metal_occlusionRoughnessMetallic.png"
+        }
+    },
+    "metal_btn": {
+        "mId": "mth-zpp-slv-s1",
+        "mName": "Zipper Puller Silver",
+        "mColor": "Silver",
+        "mType": "metal_zip",
+        "mMaps": {
+            "baseColor": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Hardware/ZipperPuller/mth-zpp-slv-s1/metal_baseColor.png",
+            "normal": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Hardware/ZipperPuller/mth-zpp-slv-s1/metal_normal.png",
+            "occlusion": "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Hardware/ZipperPuller/mth-zpp-slv-s1/metal_occlusionRoughnessMetallic.png"
+        }
+    }
+}

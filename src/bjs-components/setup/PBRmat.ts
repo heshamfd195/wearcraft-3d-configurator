@@ -16,7 +16,7 @@ import {
 import { Material } from "react-babylonjs";
 
 
-const createPBRMat=(scene:any,matName:any,matType:any)=>{
+export const createPBRMat=(scene:any,matName:any,matType:any)=>{
       let customMat =new BABYLON.PBRMaterial(matName, scene);
       customMat.useRoughnessFromMetallicTextureAlpha = false;
       customMat.useRoughnessFromMetallicTextureGreen = true;

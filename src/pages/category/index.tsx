@@ -1,24 +1,36 @@
-import React from 'react'
-import { BsChevronLeft } from 'react-icons/bs'
-import { useNavigate } from 'react-router-dom'
-import Card from '../../ui-components/stateful/cards/card'
+import React from "react";
+import { BsChevronLeft } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useCategoryQuery } from "../../api/queries/get-assetstore";
+import appSlice from "../../store/app-slice";
+import Card from "../../ui-components/stateful/cards/card";
 
-const mobile='flex-col'
-const desktop='flex-row '
 
 function Category() {
-  const navigate=useNavigate()
+  
+  const mobile = "flex-col";
+  const desktop = "flex-row ";
+  const catResponse = useCategoryQuery();
+  const {gender} =useSelector((state :any)=> state.appState._appState)
+  const navigate = useNavigate();
+ 
+
   return (
     <div className="items-center flex flex-col space-y-5 my-10">
-        <BsChevronLeft onClick={()=>navigate(-1)}/>
+      <BsChevronLeft onClick={() => navigate(-1)} />
       <p className="text-3xl">Select CategoryTEST</p>
       <div className={`flex desktop:${desktop} mobile:${mobile} gap-2`}>
-        <Card title="Cafe Racer"/>
-        <Card title="Double Rider"/>
-        <Card title="Bomber"/>
+
+        {catResponse.isSuccess &&
+          catResponse.data
+            ?.filter((bases: any) => bases.bCat === gender)
+            .map((bases: any,index:number) => {
+              return <Card title={bases.bName} key={index} url={bases.bImg} id={bases.bId}/>;
+            })}
       </div>
     </div>
-  )
+  );
 }
 
-export default Category
+export default Category;

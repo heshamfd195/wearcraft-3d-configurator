@@ -2,14 +2,24 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialAppState = {
-   stages:["style","material","color","artwork"]
+   stages:{},
+   pages:{
+    gender:"men",
 
+   },
+
+   _appState:{
+    gender:"men"
+   }
 }
 
 const appStateSlice = createSlice({
   name: "appState",
   initialState: initialAppState,
   reducers: {
+    _setGender(state,action){
+      state._appState.gender=action.payload
+    }
   
 
   }

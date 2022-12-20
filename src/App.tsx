@@ -30,6 +30,8 @@ function App() {
           <Route path="artwork" element={<Artwork/>} />
           <Route path="*" element={<h1>Page Not Found</h1>} />
         </Route>
+        <Route path="preview" element={<h1>Preview</h1>} />
+        <Route path="submit" element={<h1>Submit</h1>} />
       </Routes>
       </PersistGate>
       </Provider>

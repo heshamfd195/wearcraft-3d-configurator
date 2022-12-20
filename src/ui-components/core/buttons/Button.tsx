@@ -8,6 +8,7 @@ type ButtonProps = {
   className?:string
   textColor?: string;
   selected?: boolean;
+  value?:string
   onClick?:React.MouseEventHandler<HTMLButtonElement>
 };
 
@@ -18,11 +19,12 @@ export const Button: FC<ButtonProps> = ({
   color,
   className,
   selected,
+  value,
   onClick
 }) => {
   return (
     <button
-    onClick={onClick}
+    onClick={onClick} value={value}
       className={`${className} rounded-md py-3 px-10 text-lg
       
       ${ color === "contrast"

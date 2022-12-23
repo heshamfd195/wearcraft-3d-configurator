@@ -4,7 +4,6 @@ const Style = () => {
   return (
     <div>
         <p> Style</p>
-       <div>Asset Slider</div>
     </div>
   )
 }

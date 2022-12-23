@@ -16,6 +16,9 @@ module.exports = {
       },
       secondary:{
 
+      },
+      bar:{
+        transparent:"transparent"
       }
     },
     screens: {

@@ -13,7 +13,6 @@ function Gender() {
    if(evt != undefined){
     dispatch(appStateActions._setGender(evt.target.value))
     navigate("/category")
-
    }
 
   }

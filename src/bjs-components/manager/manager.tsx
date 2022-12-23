@@ -18,6 +18,7 @@ import { acMatOver, acMatUpdate, acMeshMatUpdate } from "../actions/materials/ma
 import { AssetManagerFallback } from "../scene/AssetLoader";
 import EnvironmentSetup from "../setup/EnvironmentSetup";
 // import "../../style.css";
+import "../../App.css"
 
 let loadState = {
     meshCount: 0,
@@ -68,21 +69,6 @@ let meshTaskLoader = [
       }
 
     ] as Task[]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -266,11 +252,11 @@ const MyScene = () => {
   
   return (
     <React.Fragment>
-      <button style={{backgroundColor:"red", height:50, width:100}} onClick={getData}> GET MAT</button>
-    <Engine antialias adaptToDeviceRatio canvasId="babylonJS" style={{width:1000,height:1000}}>
+      {/* <button style={{backgroundColor:"red", height:50, width:100}} onClick={getData}> GET MAT</button> */}
+    <Engine antialias adaptToDeviceRatio canvasId="my-canvas" >
       <Scene>
         {/* <EnvironmentSetup/> */}
-        <DebugLayer/>
+        {/* <DebugLayer/> */}
         < BackColor/>
 
         <arcRotateCamera

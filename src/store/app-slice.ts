@@ -2,10 +2,21 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialAppState = {
-   stages:{},
-   pages:{
+   _stages:{
+    list:[  { label: "Style" }, 
+    { label: "Material" },
+    { label: "Color" },
+    { label: "Artwork" },],
+    cur:"Style",
+    pointer:0
+   },
+   _pages:{
     gender:"men",
+   },
 
+   _path:{
+     allowed:["style","material","color","artwork"],
+     initial:"/"
    },
 
    _appState:{
@@ -19,7 +30,13 @@ const appStateSlice = createSlice({
   reducers: {
     _setGender(state,action){
       state._appState.gender=action.payload
+    },
+    _updateStagePointer(state,action){
+      let pointer=action.payload
+      state._stages.pointer=pointer
+      state._stages.cur=state._stages.list[pointer].label
     }
+
   
 
   }

@@ -12,7 +12,7 @@ import {persistor, store} from './store/index';
 import { Provider } from "react-redux";
 import {PersistGate} from "redux-persist/integration/react"
 
-store.subscribe(()=> console.log(store.getState()));
+// store.subscribe(()=> console.log(store.getState()));
 
 function App() {
   return (

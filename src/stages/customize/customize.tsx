@@ -53,20 +53,19 @@ const Customize = () => {
   
   return (
     <div>
-      <div className="absolute  z-20 flex flex-col space-y-5 my-10 ">
-        <BsChevronLeft onClick={() => navigate(-1)} />
-        <p className="text-2xl mx-auto">Customize</p>
-        <SliderTab tabs={list} n={pointer} />
+    
+      <div className="absolute  z-10 flex flex-col space-y-5 my-10 w-full">
+        <SliderTab tabs={list} n={pointer}/>
         <p className="text-xl">{stageName[pointer]}</p>
         <Outlet />
 
         <h1>Asset Slider</h1>
-        <div className="flex flex-wrap space-x-2 mobile:bg-primary-main desktop:bg-primary-dark  ">
+        <div className="flex flex-wrap space-x-2 mobile:bg-primary-main desktop:bg-primary-dark mx-auto ">
           <Button name="Back" onClick={onBack} />
           <Button name="Next" color="contrast" onClick={onNext} />
         </div>
       </div>
-      <div>{<ModelLoaderStory />}</div>
+      
     </div>
   );
 };

@@ -3,21 +3,22 @@
   min-height: 100%;
   /* margin: 0 auto; */
   text-align: center;
-  background-color: aqua;
+  /* background-color: aqua; */
 }
 
 
 
 #my-canvas {
  display:flex;
-  /* background-color: #f0f0f0; */
+  background-color: #d8d8d8eb;
   /* display:grid; */
 
   position: absolute; 
-  /* margin:auto; */
-/*   
-  min-height: 1000px;
+
+  
+  /* min-height: 600px;
   min-width: 1000px; */
+
 
   height: 100%;
   width: 100%;
@@ -29,4 +30,14 @@
   height: 100%; */
 
 }
+
+.slick-dots li.slick-active button:before {
+  color: #881798;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: #881798;
+}
+
 

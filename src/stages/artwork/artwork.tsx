@@ -1,12 +1,19 @@
-import React from 'react'
+import React from "react";
 
 const Artwork = () => {
   return (
     <div>
-    <p> Artwork</p>
-   <div>Artwork Options</div>
-</div>
-  )
-}
+      {/* Left */}
+      <div className="absolute z-10 left-0 ml-8 w-[22%] h-[70%] bg-white top-[10%] rounded-md">
+        Select Artwork
+      </div>
 
-export default Artwork
+      {/* Right*/}
+      <div className="absolute z-10 right-0 mr-8 w-[22%] h-[70%] bg-white top-[10%] rounded-md">
+        Try it
+      </div>
+    </div>
+  );
+};
+
+export default Artwork;

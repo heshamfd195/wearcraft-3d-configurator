@@ -18,7 +18,7 @@ function Category() {
 
   return (
     <div className="items-center flex flex-col space-y-5 my-10">
-      <BsChevronLeft onClick={() => navigate(-1)} />
+      <BsChevronLeft onClick={() => navigate("/gender")} />
       <p className="text-3xl">Select CategoryTEST</p>
       <div className={`flex desktop:${desktop} mobile:${mobile} gap-2`}>
 

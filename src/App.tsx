@@ -11,6 +11,8 @@ import Artwork from "./stages/artwork/artwork";
 import {persistor, store} from './store/index';
 import { Provider } from "react-redux";
 import {PersistGate} from "redux-persist/integration/react"
+import CustomizeTemp from "./stages/customize/customize.temp1";
+import Preview from "./stages/preview/preview";
 
 // store.subscribe(()=> console.log(store.getState()));
 
@@ -23,14 +25,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="gender" element={<Gender />} />
         <Route path="category" element={<Category />} />
-        <Route path="customize" element={<Customize />}>
+        <Route path="customize" element={<CustomizeTemp />}>
           <Route path="style" element={<Style/>} />
           <Route path="material" element={<Material/>} />
           <Route path="color" element={<Color/>} />
           <Route path="artwork" element={<Artwork/>} />
           <Route path="*" element={<h1>Page Not Found</h1>} />
         </Route>
-        <Route path="preview" element={<h1>Preview</h1>} />
+        <Route path="preview" element={<Preview/>} />
         <Route path="submit" element={<h1>Submit</h1>} />
       </Routes>
       </PersistGate>

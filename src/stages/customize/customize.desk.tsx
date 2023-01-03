@@ -34,6 +34,7 @@ const CustomizeDesk: FC<any> = () => {
       navigate(stageName[stagePointer]);
     } else if (pointer === 0) {
       dispatch(appStateActions._resetStages());
+      dispatch(appStateActions._updateStyleList({prev:0,curr:0}))
       navigate("/category");
     }
   };

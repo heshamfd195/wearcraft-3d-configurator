@@ -6,6 +6,7 @@ import { PURGE } from "redux-persist";
 
 import { BsTypeH1 } from "react-icons/bs";
 import { useScreenSize } from "../../hooks/get-screen-size";
+import { Select ,Option} from "@material-tailwind/react";
 
 
 function Home() {
@@ -35,6 +36,7 @@ const [height,width,]=screen
         onClick={ onNavigate}
       />
       <h1>{`Device: ${device}`}</h1>
+ 
 
     </div>
   );

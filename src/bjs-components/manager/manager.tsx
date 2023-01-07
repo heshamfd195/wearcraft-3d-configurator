@@ -19,6 +19,7 @@ import { AssetManagerFallback } from "../scene/AssetLoader";
 import EnvironmentSetup from "../setup/EnvironmentSetup";
 // import "../../style.css";
 import "../../App.css"
+import { useBaseByIdQuery } from "../../api/queries/get-assetstore";
 
 let loadState = {
     meshCount: 0,
@@ -233,6 +234,14 @@ const MyScene = () => {
   const [loaded,setLoad]=useState(false)
   const [matState,setMatState]=useState(false)
   const [mat,SetMat]=useState({})
+
+  const {data,isSuccess,}=useBaseByIdQuery('mcr-b1')
+
+  if(isSuccess){
+   data?.map((b:any,index:number)=>{
+     console.log("b :",b.jParts)
+   })
+  }
 
   
   const getData = async () => {

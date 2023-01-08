@@ -59,6 +59,10 @@ const initialAppState = {
 
   _appState: {
     gender: "men",
+    base:{
+      id:"",
+      isFetched:false
+    }
   },
 };
 
@@ -68,6 +72,9 @@ const appStateSlice = createSlice({
   reducers: {
     _setGender(state, action) {
       state._appState.gender = action.payload;
+    },
+    _setBase(state, action) {
+      state._appState.base = action.payload;
     },
     _updateStagePointer(state, action) {
       let pointer = action.payload;

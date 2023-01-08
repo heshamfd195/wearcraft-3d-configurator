@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "typeRoots" : ["node_modules/@types", "src/types"],
+    "strictNullChecks": true,
+    "noImplicitAny":false,
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],

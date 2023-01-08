@@ -9,18 +9,18 @@ import Card from "../../ui-components/stateful/cards/card";
 
 function Category() {
   
-  const mobile = "flex-col";
-  const desktop = "flex-row ";
+
   const catResponse = useCategoryQuery();
   const {gender} =useSelector((state :any)=> state.appState._appState)
   const navigate = useNavigate();
+  
  
 
   return (
     <div className="items-center flex flex-col space-y-5 my-10">
       <BsChevronLeft onClick={() => navigate("/gender")} />
       <p className="text-3xl">Select CategoryTEST</p>
-      <div className={`flex desktop:${desktop} mobile:${mobile} gap-2`}>
+      <div className={`flex desktop:flex-row mobile:flex-col gap-2`}>
 
         {catResponse.isSuccess &&
           catResponse.data

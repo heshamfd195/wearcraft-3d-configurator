@@ -235,13 +235,7 @@ const MyScene = () => {
   const [matState,setMatState]=useState(false)
   const [mat,SetMat]=useState({})
 
-  const {data,isSuccess,}=useBaseByIdQuery('mcr-b1')
 
-  if(isSuccess){
-   data?.map((b:any,index:number)=>{
-     console.log("b :",b.jParts)
-   })
-  }
 
   
   const getData = async () => {

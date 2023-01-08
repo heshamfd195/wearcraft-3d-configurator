@@ -4,6 +4,7 @@ import { curryGetDefaultMiddleware } from '@reduxjs/toolkit/dist/getDefaultMiddl
 import storage from 'redux-persist/lib/storage/session'
 import { combineReducers } from '@reduxjs/toolkit'
 import appStateReducer from './app-slice'
+import customizeReducer from './customize-slice'
 
 
 import {
@@ -35,6 +36,7 @@ const persistConfig={
 
 const reducer =combineReducers({
     appState: appStateReducer,
+    customizeState:customizeReducer,
     [getAssetStore.reducerPath]:getAssetStore.reducer
 
 })

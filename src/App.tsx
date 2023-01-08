@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Category from "./pages/category";
 import Gender from "./pages/gender";
 import Home from "./pages/home";
-import Customize from "./stages/customize/customize";
 import Style from "./stages/style/style";
 import Material from "./stages/material/material";
 import Color from "./stages/color/color";

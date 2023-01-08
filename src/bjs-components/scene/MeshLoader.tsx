@@ -2,6 +2,7 @@ import React, { useRef, useContext, useEffect,useMemo ,useLayoutEffect} from 're
 
 import { useScene } from 'babylonjs-hook';
 import { MeshBuilder, Nullable, MeshAssetTask, Vector3,Texture, AssetsManager, Scene, TextureAssetTask } from '@babylonjs/core';
+import { useAssetManager } from 'react-babylonjs';
 
 
 

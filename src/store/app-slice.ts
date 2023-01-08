@@ -8,8 +8,12 @@ const initialAppState = {
         { name: "Back", selected: false },
         { name: "Collar", selected: false },
         { name: "Sleeves", selected: false },
+        { name: "Waist Pockets", selected: false },
+        { name: "Chest Pockets", selected: false },
+        { name: "Cuffs", selected: false },
         { name: "Shoulder", selected: false },
         { name: "Hem", selected: false },
+      
       ],
       dList: [
         {

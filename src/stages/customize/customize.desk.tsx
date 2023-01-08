@@ -5,6 +5,7 @@ import { Outlet, redirect, useLocation, useNavigate } from "react-router-dom";
 import SliderTab from "../../ui-components/core/slider-tab/SliderTab";
 import { appStateActions } from "../../store/app-slice";
 import { AssetSlider } from "../sliders/asset-slider";
+import { customizeActions } from "../../store/customize-slice";
 
 const stageName = ["style", "material", "color", "artwork"];
 
@@ -35,6 +36,7 @@ const CustomizeDesk: FC<any> = () => {
     } else if (pointer === 0) {
       dispatch(appStateActions._resetStages());
       dispatch(appStateActions._updateStyleList({prev:0,curr:0}))
+      dispatch(customizeActions._resetMeshTask())
       navigate("/category");
     }
   };

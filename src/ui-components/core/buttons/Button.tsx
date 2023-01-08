@@ -25,7 +25,7 @@ export const Button: FC<ButtonProps> = ({
   return (
     <button
     onClick={onClick} value={value}
-      className={`${className} rounded-md  px-10 
+      className={`${className} rounded-md  px-10  active:bg-orange-200 focus:bg-green-300
 
       ${variant ==="outlined" && "border border-primary-dark hover:bg-gray-100 hover:text-opacity-30"}
       

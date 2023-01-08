@@ -18,13 +18,13 @@ export const StyleList: FC<any> = () => {
 
   //   const [l, ls] = useState(list);
   const onClickHandler = (e: any) => {
-    let value = e.target.value;
-    let newlist = [...list];
-    let selectedData = {
-      prev: selection.curr,
-      curr: value
-    }
-    dispatch(appStateActions._updateStyleList(selectedData))
+    // let value = e.target.value;
+    // let newlist = [...list];
+    // let selectedData = {
+    //   prev: selection.curr,
+    //   curr: value
+    // }
+    // dispatch(appStateActions._updateStyleList(selectedData))
   }
 
   return (
@@ -40,16 +40,16 @@ export const StyleList: FC<any> = () => {
             name={button.name}
             size="md"
             variant="outlined"
-            selected={button.selected}
+            // selected={button.selected}
             onClick={onClickHandler}
           />
 
         );
 
       })}
-      {dList?.map((button: any, index: number) => {
+      {/* {dList?.map((button: any, index: number) => {
         return <Select key={index} options={button.options} defaultInputValue={button.name} />
-      })}
+      })} */}
 
 
 

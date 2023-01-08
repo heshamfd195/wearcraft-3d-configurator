@@ -19,6 +19,11 @@ const customizeSlice = createSlice({
       state._meshTaskLoader=meshTask
       state._meshTaskStates.isProcessed=true
     },
+    _resetMeshTask(state){
+  
+      state._meshTaskLoader=[]
+      state._meshTaskStates.isProcessed=false
+    },
 
 
   },

@@ -34,7 +34,7 @@ module.exports = {
       // => @media (min-width: 1280px) { ... }
     },
     fontFamily: {
-      serif: ["Roboto"],
+      serif: ["Roboto","Arial"],
     },
   },
   plugins: [],

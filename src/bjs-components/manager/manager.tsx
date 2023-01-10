@@ -10,6 +10,7 @@ import {
   Scene,
   Task,
   TaskType,
+  useAfterRender,
   useAssetManager,
   useBeforeRender,
   useScene,
@@ -20,6 +21,8 @@ import EnvironmentSetup from "../setup/EnvironmentSetup";
 // import "../../style.css";
 import "../../App.css"
 import { useBaseByIdQuery } from "../../api/queries/get-assetstore";
+import { useDispatch } from "react-redux";
+import { propTypesSelected } from "@material-tailwind/react/types/components/select";
 
 let loadState = {
     meshCount: 0,
@@ -100,31 +103,44 @@ const modelAssetTasks = [
   },
 ] as Task[];
 
-const MyFallback = (props:any) => {
+export const MyFallback = (props:any) => {
+  
   const boxRef:any = useRef();
   const context = useContext(AssetManagerContext);
   console.log("context in fallback:", context);
+  const count = useRef(0);
+
+  // useAfterRender((scene)=>{
+
+  //       count.current = count.current + 1;
+  //       console.log(count)
+  //       if(count.current ===8){
+  //         props.onMeshFallbackLoaded()
+       
+  //       }
+    
+  // })
 
 
 
-  useBeforeRender((scene) => {
-    if (boxRef.current) {
-      var deltaTimeInMillis = scene.getEngine().getDeltaTime();
+  // useBeforeRender((scene) => {
+  //   if (boxRef.current) {
+  //     var deltaTimeInMillis = scene.getEngine().getDeltaTime();
 
-      const rpm = 10;
-      boxRef.current.rotation.x = Math.PI / 4;
-      boxRef.current.rotation.y +=
-        (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000);
+  //     const rpm = 10;
+  //     boxRef.current.rotation.x = Math.PI / 4;
+  //     boxRef.current.rotation.y +=
+  //       (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000);
         
-    }
-  });
+  //   }
+  // });
 
   const eventData = context?.lastProgress?.eventData;
 //   console.log("Event Data: ",eventData?.remainingCount)
   
-if(eventData?.task.isCompleted){
-  props.onLoaded(true)
-}
+// if(eventData?.task.isCompleted){
+//   props.onLoaded(true)
+// }
 
 
 
@@ -155,7 +171,7 @@ if(eventData?.task.isCompleted){
           </rectangle>
         </rectangle>
       </adtFullscreenUi>
-      <box ref={boxRef} name="fallback" size={5} />
+      {/* <box ref={boxRef} name="fallback" size={5} /> */}
     
     </>
   );

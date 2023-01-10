@@ -5,12 +5,15 @@ import { MeshBuilder, Nullable, MeshAssetTask, Vector3,Texture, AssetsManager, S
 import { AdvancedDynamicTexture, Container, Control, Rectangle, TextBlock } from '@babylonjs/gui';
 import { useDispatch, useSelector } from 'react-redux';
 import { AssetManagerContext } from 'react-babylonjs';
+import { customizeActions } from '../../store/customize-slice';
 
 
 type AssetManagerFallbackType = {
     barColor: string
     textColor: string
-    totalControls: number
+    totalControls: number,
+    meshStates:any,
+    onDispatchMeshState:any,
     loadState:{
         loadCount: number
         meshCount:number,
@@ -25,12 +28,14 @@ type ControlRefs = {
 }
 
 
-export const AssetManagerFallback: React.FC<AssetManagerFallbackType> = ({ barColor, textColor, totalControls,loadState}) => {
+export const AssetManagerFallback: React.FC<AssetManagerFallbackType> = ({ barColor, textColor, totalControls,loadState,meshStates,onDispatchMeshState}) => {
     // const dispatch = useDispatch()
-    // const {meshStates} =useSelector((state: any ) => state.appState._switchMeshStates)
+    
     const context = useContext(AssetManagerContext);
     const controlRefs = useRef<Nullable<ControlRefs>>(null);
     const scene = useScene();
+    const count = useRef(0);
+
 
 
     
@@ -122,6 +127,7 @@ export const AssetManagerFallback: React.FC<AssetManagerFallbackType> = ({ barCo
 
     useEffect(() => {
         if (controlRefs.current && context?.lastProgress) {
+  
             const { eventData } = context.lastProgress!;
             controlRefs.current.textRef.text = `loaded ${eventData.totalCount - eventData.remainingCount}/${eventData.totalCount}`;
 
@@ -129,9 +135,9 @@ export const AssetManagerFallback: React.FC<AssetManagerFallbackType> = ({ barCo
             controlRefs.current.progressRect.width = percentComplete;
             controlRefs.current.progressText.text = `${(percentComplete * 100).toFixed(0)}%`
 
-            console.log("eventData.totalCount",eventData.totalCount)
-            console.log("remainingCount",eventData.remainingCount)
-            console.log("percentComplete",percentComplete)
+            // console.log("eventData.totalCount",eventData.totalCount)
+            // console.log("remainingCount",eventData.remainingCount)
+            // console.log("percentComplete",percentComplete)
         }
 
        
@@ -141,15 +147,26 @@ export const AssetManagerFallback: React.FC<AssetManagerFallbackType> = ({ barCo
 
     // useEffect(() => {
     // //  console.log("loaded done")
-    //  console.log(context?.lastProgress?.eventData)
-    // //  console.log(context?.lastProgress?.eventData.task.isCompleted)
+    // //  console.log(context?.lastProgress?.eventData)
+    //  console.log(context?.lastProgress?.eventData.task.isCompleted)
     // loadState.loadCount += 1;
-    // console.log(loadState.loadCount)
-    // // if(loadState.loadCount > meshStates.meshCount){
-    // //     dispatch(appStateActions._updateMeshState({...meshStates,loaded:true}))
-    // // }
+    // // console.log(loadState.loadCount)
+    // if(loadState.loadCount >= meshStates.meshCount){
+    //     onDispatchMeshState({...meshStates,loaded:true,loadCount:loadState.loadCount})
+    //     // onDispatchMeshState("yes")
 
+    //     // dispatch(customizeActions._updateMeshState({...meshStates,loaded:true}))
+    // }
+
+    // },[context?.lastProgress?.eventData.task.isCompleted])
+
+    // useEffect(() => {
+      
+    //     count.current = count.current + 1;
+    //     console.log(count)
     // })
+
+    
 
     return null;
 }

@@ -40,6 +40,9 @@ export const getAssetStore: any = createApi({
     jBases:builder.query<any,string>({
         query:(gender)=>`/J${gender}Bases`
     }),
+    mcrParts:builder.query<any,string>({
+        query:(id)=>`/mcr-parts/${id}`
+    }),
   }),
 });
 
@@ -51,6 +54,8 @@ export const {
   useMaterialOnLoadQuery,
   useAssetColorSliderQuery,
   useSceneSettingQuery,
+  useMatDefaultQuery,
+  useMcrPartsQuery
   
   
 } = getAssetStore;

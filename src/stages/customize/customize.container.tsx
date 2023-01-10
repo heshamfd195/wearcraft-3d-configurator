@@ -5,9 +5,10 @@ import CustomizeDesk from "./customize.desk";
 import CustomizeMob from "./customize.mob";
 import SceneAPI from "../../bjs-components/scene/scene-api";
 import { ConfiguratorScene } from "../../bjs-components/scene/configurator-scene";
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 const CustomizeContainer = () => {
-  const { device, isMobile } = useScreenSize();
+  // const { device, isMobile } = useScreenSize();
   return (
     <div className=" relative w-screen h-screen">
       

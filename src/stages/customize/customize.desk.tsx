@@ -37,6 +37,8 @@ const CustomizeDesk: FC<any> = () => {
       dispatch(appStateActions._resetStages());
       dispatch(appStateActions._updateStyleList({prev:0,curr:0}))
       dispatch(customizeActions._resetMeshTask())
+      dispatch(customizeActions._updadeMeshLoadedState(false))
+      dispatch(customizeActions.reset())
       navigate("/category");
     }
   };

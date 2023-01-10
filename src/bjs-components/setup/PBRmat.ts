@@ -21,10 +21,8 @@ export const createPBRMat=(scene:any,matName:any,matType:any)=>{
       customMat.useRoughnessFromMetallicTextureAlpha = false;
       customMat.useRoughnessFromMetallicTextureGreen = true;
       customMat.useMetallnessFromMetallicTextureBlue = true;
-      // console.log(matType)
-
       customMat.albedoTexture = new BABYLON.Texture(matType.mMaps.baseColor, scene);
-      // customMat.roughness =0.8
+
 
       customMat.bumpTexture = new BABYLON.Texture(matType.mMaps.normal, scene);
       customMat.metallicTexture = new BABYLON.Texture(matType.mMaps.occlusion,scene)

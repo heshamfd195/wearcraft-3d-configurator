@@ -10,6 +10,7 @@ import { PBRMat } from "../setup/PBRmat";
 import { AssetManagerContextProvider } from "react-babylonjs";
 import { AssetManagerFallback } from "./AssetLoader";
 import { MeshLoader } from "./MeshLoader";
+import { MyFallback } from "../manager/manager";
 
 let sceneSettings = {
   name: "environment",
@@ -270,12 +271,13 @@ export const CustomScene3D: React.FC<any> = () => {
         <AssetManagerContextProvider>
           <Suspense
             fallback={
-              <AssetManagerFallback
-                barColor="#666666"
-                textColor="white"
-                totalControls={2}
-                loadState={loadState}
-              />
+              // <AssetManagerFallback
+              //   barColor="#666666"
+              //   textColor="white"
+              //   totalControls={2}
+              //   loadState={loadState}
+              // />
+              <MyFallback/>
             }
           >
             {/* {Object.keys(meshTaskLoader).map(function (key:string, index) {

@@ -4,15 +4,15 @@ const initialAppState = {
   _customize: {
     style: {
       list: [
-        { name: "Front", selected: true },
-        { name: "Back", selected: false },
-        { name: "Collar", selected: false },
-        { name: "Sleeves", selected: false },
-        { name: "Waist Pockets", selected: false },
-        { name: "Chest Pockets", selected: false },
-        { name: "Cuffs", selected: false },
-        { name: "Shoulder", selected: false },
-        { name: "Hem", selected: false },
+        { name: "Front", selected: true ,id:"front"},
+        { name: "Back", selected: false ,id:"back"},
+        { name: "Collar", selected: false ,id:"collar"},
+        { name: "Sleeves", selected: false ,id:"sleeves"},
+        { name: "Waist Pockets", selected: false ,id:"waistPockets"},
+        { name: "Chest Pockets", selected: false ,id:"chestPockets"},
+        { name: "Cuffs", selected: false ,id:"cuffs"},
+        { name: "Shoulder", selected: false ,id:"shoulder"},
+        { name: "Hem", selected: false ,id:"hem"},
       
       ],
       dList: [

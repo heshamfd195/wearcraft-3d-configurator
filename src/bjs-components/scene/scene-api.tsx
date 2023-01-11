@@ -133,6 +133,7 @@ const SceneAPI = () => {
     const { data, isSuccess } = defMaterialRes;
     if (isSuccess) {
       dispatch(customizeActions._setMatDefault(data[0]));
+      dispatch(customizeActions._updateMatData(data[0]));
     }
   }, [defMaterialRes.isSuccess]);
 

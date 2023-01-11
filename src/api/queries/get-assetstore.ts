@@ -29,7 +29,7 @@ export const getAssetStore: any = createApi({
       query: (color) => `/${color}Color`,
     }),
     textureSlider: builder.query<any, string>({
-      query: (texture) => `/${texture}`,
+      query: (texture) => `/matData/${texture}`,
     }),
     materialOnLoad: builder.query<any, string>({
       query: (mat) => `/material-${mat}`,

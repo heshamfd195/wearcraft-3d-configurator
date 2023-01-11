@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 // let data = ["Sheep Skin", "Cowhide", "Item 3"];
 
-const  DropDownOptions=({data,initial,id})=> {
+const  DropDownOptions=({data,initial,id,onValue})=> {
   const [open, setOpen] = useState(false);
   const [select, setSelect] = useState(initial);
 
@@ -20,6 +20,7 @@ const  DropDownOptions=({data,initial,id})=> {
     let val =e.target.value;
     console.log("val ",val)
     setSelect(val)
+    onValue(val)
 
   }
  

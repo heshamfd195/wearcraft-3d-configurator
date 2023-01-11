@@ -4,7 +4,7 @@ import { customizeActions } from "../../store/customize-slice";
 
 
 
-const MaterialCard: FC<any> = ({ textData}) => {
+const ColorCard: FC<any> = ({ textData}) => {
 
   const matDefualtCurData =useSelector((state: any) => state.customizeState._matDefualtData )
   const matState  =useSelector((state: any) => state.customizeState._matState )
@@ -38,7 +38,7 @@ const MaterialCard: FC<any> = ({ textData}) => {
     //  console.log(textureData,type)
         loadedMatData[mType]=textureData
       dispatch(customizeActions._updateMatData(loadedMatData))
-      // console.log("Updated mat :",loadedMatData)
+      console.log("Updated mat :",loadedMatData)
      
     
   
@@ -54,4 +54,4 @@ const MaterialCard: FC<any> = ({ textData}) => {
   );
 };
 
-export default MaterialCard;
+export default ColorCard;

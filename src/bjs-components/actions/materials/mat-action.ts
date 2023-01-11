@@ -2,7 +2,7 @@ import { Scene } from "babylonjs"
 import { useMemo } from "react"
 import { createPBRMat } from "../../setup/PBRmat"
 import { useScene } from "babylonjs-hook"
-import { MeshAssetTask } from "@babylonjs/core"
+import { MeshAssetTask, Texture } from "@babylonjs/core"
 
 
 let list=['panel','stitch','panel_zip','panel_sl','panel_sr','panel_lin',"metal_zip"]
@@ -204,6 +204,109 @@ export const JLoadMatAction1 = (
 
 
   // }
+}
+
+
+
+export const JCMatLoad=(scene,matType,matMaps,matOver)=>{
+  let panelMatIndex = scene.materials.map(function(x) {return x.id; }).indexOf('panelMat');
+  let panelZipIndex = scene.materials.map(function(x) {return x.id; }).indexOf('panelZip');
+  let panelLinIndex = scene.materials.map(function(x) {return x.id; }).indexOf('panelLin');
+  let stitchIndex = scene.materials.map(function(x) {return x.id; }).indexOf('stitchMat');
+  let metalZipIndex = scene.materials.map(function(x) {return x.id; }).indexOf('metalZip');
+  let panelSlIndex = scene.materials.map(function(x) {return x.id; }).indexOf('panelSl');
+
+
+  if(matOver ==='Torso'){
+    if(matType === "panel"){
+      scene.materials[panelMatIndex].albedoTexture = new Texture(matMaps.baseColor,scene);
+      scene.materials[panelMatIndex].albedoTexture.uScale=5
+      scene.materials[panelMatIndex].albedoTexture.vScale=5
+  
+      scene.materials[panelMatIndex].bumpTexture = new Texture(matMaps.normal,scene);
+      scene.materials[panelMatIndex].bumpTexture.uScale=5
+      scene.materials[panelMatIndex].bumpTexture.vScale=5
+  
+      scene.materials[panelMatIndex].metallicTexture = new Texture(matMaps.occlusion,scene);
+    }
+  }
+
+
+  if(matOver ==='Full Jacket'){
+ 
+    if(matType === "panel"){
+      scene.materials[panelMatIndex].albedoTexture = new Texture(matMaps.baseColor,scene);
+      scene.materials[panelMatIndex].albedoTexture.uScale=5
+      scene.materials[panelMatIndex].albedoTexture.vScale=5
+  
+      scene.materials[panelMatIndex].bumpTexture = new Texture(matMaps.normal,scene);
+      scene.materials[panelMatIndex].bumpTexture.uScale=5
+      scene.materials[panelMatIndex].bumpTexture.vScale=5
+
+      scene.materials[panelSlIndex].albedoTexture = new Texture(matMaps.baseColor,scene);
+      scene.materials[panelSlIndex].albedoTexture.uScale=5
+      scene.materials[panelSlIndex].albedoTexture.vScale=5
+  
+      scene.materials[panelSlIndex].bumpTexture = new Texture(matMaps.normal,scene);
+      scene.materials[panelSlIndex].bumpTexture.uScale=5
+      scene.materials[panelSlIndex].bumpTexture.vScale=5
+    }
+    if(matType === "panel_sl" || matType === "panel_sl"){
+      scene.materials[panelSlIndex].albedoTexture = new Texture(matMaps.baseColor,scene);
+      scene.materials[panelSlIndex].albedoTexture.uScale=5
+      scene.materials[panelSlIndex].albedoTexture.vScale=5
+  
+      scene.materials[panelSlIndex].bumpTexture = new Texture(matMaps.normal,scene);
+      scene.materials[panelSlIndex].bumpTexture.uScale=5
+      scene.materials[panelSlIndex].bumpTexture.vScale=5
+    }
+
+    
+
+  }
+
+
+  if(matOver ==='Sleeves'){
+  
+      scene.materials[panelSlIndex].albedoTexture = new Texture(matMaps.baseColor,scene);
+      scene.materials[panelSlIndex].albedoTexture.uScale=5
+      scene.materials[panelSlIndex].albedoTexture.vScale=5
+      scene.materials[panelSlIndex].bumpTexture = new Texture(matMaps.normal,scene);
+      scene.materials[panelSlIndex].bumpTexture.uScale=5
+      scene.materials[panelSlIndex].bumpTexture.vScale=5
+      scene.materials[panelSlIndex].metallicTexture = new Texture(matMaps.occlusion,scene);
+       
+
+  }
+
+  if(matOver ==='Sleeves'){
+  
+    if(matType === "panel_sl" || matType === "panel_sl"){
+      scene.materials[panelSlIndex].albedoTexture = new Texture(matMaps.baseColor,scene);
+      scene.materials[panelSlIndex].albedoTexture.uScale=5
+      scene.materials[panelSlIndex].albedoTexture.vScale=5
+  
+      scene.materials[panelSlIndex].bumpTexture = new Texture(matMaps.normal,scene);
+      scene.materials[panelSlIndex].bumpTexture.uScale=5
+      scene.materials[panelSlIndex].bumpTexture.vScale=5
+    }
+       
+
+  }
+
+  if(matType === "panel_zip"){
+    
+    scene.materials[panelZipIndex].albedoTexture = new Texture(matMaps.baseColor,scene);
+    // scene.materials[panelZipIndex].albedoColor=new Color3(0,0,0)
+    scene.materials[panelZipIndex].bumpTexture = new Texture(matMaps.normal,scene);
+
+  }
+ 
+
+
+
+
+  return null
 }
 
 

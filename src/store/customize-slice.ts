@@ -111,7 +111,42 @@ const initialState = {
     },
     sceneList:["crm-fr-L1D1"] as string[],
     disableList:[] as string[],
-   }
+   },
+   _matDefualtData:{},
+  _matState:{
+  state:false,
+  selectedMat:'',
+  matType:'',
+  matMaps:{},
+  matOver:'Full Jacket',
+  matLeatherType:'Cowhide',
+  option:'leather',
+  
+},
+
+_matColor:{
+  mode:'zipper',
+  color:'black'
+
+},
+
+_matOptions:{
+  leather:{
+    selected:true,
+    name:'Leather Type',
+    options:['Cowhide','SheepSkin']
+  },
+  fabric:{
+    selected:false,
+    name:'Fabric Type',
+    options:['Wool','Polyester']
+  },
+},
+
+_artworklogoState:{
+  position:"left Chest",
+  part:"fr"
+}
 
 };
 
@@ -258,6 +293,33 @@ const customizeSlice = createSlice({
       state._switchMeshStates.partEnable.name=""
       state._switchMeshStates.disableList=[]
     },
+    _updateMatData(state,action){
+      let matData =action.payload;
+      state._matDefualtData =matData;
+    },
+    _updateMatState(state,action){
+      let matData =action.payload;
+      state._matState =matData;
+    },
+    _updateMatOptions(state,action){
+      state._matOptions.leather.selected=false
+      state._matOptions.fabric.selected=false
+      let matOption =action.payload;
+      state._matOptions[matOption].selected=true
+
+     
+    },
+    _updateMatColor(state,action){
+      state._matColor.mode =action.payload
+    },
+    _updateMatOver(state,action){
+      state._matState.matOver=action.payload
+    },
+    _updateArtworkPos(state,action){
+      state._artworklogoState.position=action.payload
+
+    },
+    
 
    
     reset(state){

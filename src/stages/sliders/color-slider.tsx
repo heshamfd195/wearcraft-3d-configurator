@@ -8,16 +8,17 @@ import { useScreenSize } from "../../hooks/get-screen-size";
 import { useMcrPartsQuery, useTextureSliderQuery } from "../../api/queries/get-assetstore";
 import { useSelector } from "react-redux";
 import MaterialCard from "./material-card";
+import ColorCard from "./color-card";
 
 
 
 
-export const MaterialSlider = () => {
+export const ColorSlider = () => {
   const assetSliderState = useSelector(
     (state: any) => state.customizeState._assetSliderState
   );
  
-  const { data, error, isLoading, isFetching, isSuccess } = useTextureSliderQuery('cowhide')
+  const { data, error, isLoading, isFetching, isSuccess } = useTextureSliderQuery('zipper')
 
   const settings = {
     dots: false,
@@ -37,7 +38,7 @@ export const MaterialSlider = () => {
         {isSuccess &&
           data?.map((textData:any,index:any) => {
             return (
-              <MaterialCard
+              <ColorCard
               textData={textData}
               key={index}
               />

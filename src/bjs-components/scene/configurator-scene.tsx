@@ -5,6 +5,7 @@ import {
   MeshAssetTask,
   MeshBuilder,
   StandardMaterial,
+  Texture,
   Vector3,
 } from "@babylonjs/core";
 import "@babylonjs/inspector";
@@ -30,6 +31,7 @@ import {
   useScene,
 } from "react-babylonjs";
 import {
+  JCMatLoad,
   acMatOver,
   acMatUpdate,
   acMeshMatUpdate,
@@ -57,11 +59,11 @@ let loadState = {
 };
 
 export const ConfiguratorScene = () => {
-  const navigate =useNavigate()
+  const navigate = useNavigate();
 
   // navigate(0)
 
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   // const meshTaskLoader = useSelector(
   //   (state: any) => state.customizeState._meshTaskLoader
   // );
@@ -69,23 +71,36 @@ export const ConfiguratorScene = () => {
     (state: any) => state.customizeState._sceneSettingState
   );
 
-  
-
   const matDefaultState = useSelector(
     (state: any) => state.customizeState._matDefaultState
   );
-  const {meshStates} = useSelector(
+  const { meshStates } = useSelector(
     (state: any) => state.customizeState._switchMeshStates
   );
-  const {meshTaskLoader} = useSelector(
+  const { meshTaskLoader } = useSelector(
     (state: any) => state.customizeState._switchMeshStates
   );
 
-  const switchMeshStates =useSelector((state: any) => state.customizeState._switchMeshStates)
-  const {curPartsId,currMeshList} =useSelector((state: any) => state.customizeState._switchMeshStates)
-  const jpUniMeshLoader=useSelector((state: any) => state.customizeState._jpUniMeshLoader)
-  const {is_style,is_material,is_color,is_artwork} =useSelector((state: any) => state.customizeState._stageFlags)
+  const switchMeshStates = useSelector(
+    (state: any) => state.customizeState._switchMeshStates
+  );
+  const artworkState = useSelector(
+    (state: any) => state.customizeState._artworklogoState
+  );
 
+  const matDefualtData = useSelector(
+    (state: any) => state.customizeState._matDefualtData
+  );
+  const matState = useSelector((state: any) => state.customizeState._matState);
+  const { curPartsId, currMeshList } = useSelector(
+    (state: any) => state.customizeState._switchMeshStates
+  );
+  const jpUniMeshLoader = useSelector(
+    (state: any) => state.customizeState._jpUniMeshLoader
+  );
+  const { is_style, is_material, is_color, is_artwork } = useSelector(
+    (state: any) => state.customizeState._stageFlags
+  );
 
   const assetSliderState = useSelector(
     (state: any) => state.customizeState._assetSliderState
@@ -100,18 +115,10 @@ export const ConfiguratorScene = () => {
   //     loaded:false}))
   // }
 
-  const onMeshFallbackLoaded=()=>{
-    console.log("true")
-    dispatch(customizeActions._updadeMeshLoadedState(true))
-  }
-
-  
-
-  
-
-
-
-
+  const onMeshFallbackLoaded = () => {
+    console.log("true");
+    dispatch(customizeActions._updadeMeshLoadedState(true));
+  };
 
   return (
     <React.Fragment>
@@ -122,7 +129,7 @@ export const ConfiguratorScene = () => {
           <BackColor />
           <EnvironmnetLoader />
           {/* <PBRMaterialLoader material={matDefaultState.matDefault} /> */}
-          {<PBRMaterialLoader material={matDefaultState.matDefault} /> }
+          {<PBRMaterialLoader material={matDefaultState.matDefault} />}
           <arcRotateCamera
             name="camera1"
             alpha={Math.PI / 2}
@@ -159,10 +166,10 @@ export const ConfiguratorScene = () => {
                 //   meshStates={meshStates}
                 //   onDispatchMeshState={onDispatchMeshState}
                 // />
-               < MyFallback onMeshFallbackLoaded={onMeshFallbackLoaded}/>
+                <MyFallback onMeshFallbackLoaded={onMeshFallbackLoaded} />
               }
             >
-              {  Object.keys(meshTaskLoader).map(function (
+              {Object.keys(meshTaskLoader).map(function (
                 key: string,
                 index: number
               ) {
@@ -175,20 +182,31 @@ export const ConfiguratorScene = () => {
                   );
                 }
               })}
-                 {/* {meshStates.loaded && <SwitchManager/>} */}
-                 {/* {meshLoadState.isMeshLoaded &&  <SwitchManager assetSliderState={assetSliderState} switchMeshStates={switchMeshStates}/>} */}
-                 { is_style && <SwitchManager assetSliderState={assetSliderState} switchMeshStates={switchMeshStates}/>}
-                 {/* { is_material && <SceneDisposer currMeshList={currMeshList}/>} */}
-                 {/* {<MeshManager uniMeshTaskLoader={jpUniMeshLoader}/>} */}
-
-
-                 
-                
+              {/* {meshStates.loaded && <SwitchManager/>} */}
+              {/* {meshLoadState.isMeshLoaded &&  <SwitchManager assetSliderState={assetSliderState} switchMeshStates={switchMeshStates}/>} */}
+              {is_style && (
+                <SwitchManager
+                  assetSliderState={assetSliderState}
+                  switchMeshStates={switchMeshStates}
+                />
+              )}
+              {is_material && (
+                <SceneTextureManager
+                  matDefualtCurData={matDefualtData}
+                  matState={matState}
+                />
+              )}
+              {is_color && (
+                <SceneTextureManager
+                  matDefualtCurData={matDefualtData}
+                  matState={matState}
+                />
+              )}
+              {/* {is_artwork && <ArtworkManager artworkState={artworkState}/>} */}
+              {/* { is_material && <SceneDisposer currMeshList={currMeshList}/>} */}
+              {/* {<MeshManager uniMeshTaskLoader={jpUniMeshLoader}/>} */}
             </Suspense>
-            
           </AssetManagerContextProvider>
-          
-         
         </Scene>
       </Engine>
     </React.Fragment>
@@ -260,81 +278,86 @@ export const MeshLoader1: React.FC<any> = ({ jpMeshTaskLoader }) => {
   part.name = meshName;
   // console.log("mesh loaded : ",meshName)
 
-
   // JLoadMatAction(scene,meshName,loadedAssets)
-  
+
   // console.log(mesh.taskState)
- 
 
-
-  let panelMatIndex = scene!.materials.map(function(x) {return x.id; }).indexOf('panelMat');
-  let panelZipIndex = scene!.materials.map(function(x) {return x.id; }).indexOf('panelZip');
-  let panelLinIndex = scene!.materials.map(function(x) {return x.id; }).indexOf('panelLin');
-  let stitchIndex = scene!.materials.map(function(x) {return x.id; }).indexOf('stitchMat');
-  let metalZipIndex = scene!.materials.map(function(x) {return x.id; }).indexOf('metalZip');
-  let panelSlIndex = scene!.materials.map(function(x) {return x.id; }).indexOf('panelSl');
+  let panelMatIndex = scene!.materials
+    .map(function (x) {
+      return x.id;
+    })
+    .indexOf("panelMat");
+  let panelZipIndex = scene!.materials
+    .map(function (x) {
+      return x.id;
+    })
+    .indexOf("panelZip");
+  let panelLinIndex = scene!.materials
+    .map(function (x) {
+      return x.id;
+    })
+    .indexOf("panelLin");
+  let stitchIndex = scene!.materials
+    .map(function (x) {
+      return x.id;
+    })
+    .indexOf("stitchMat");
+  let metalZipIndex = scene!.materials
+    .map(function (x) {
+      return x.id;
+    })
+    .indexOf("metalZip");
+  let panelSlIndex = scene!.materials
+    .map(function (x) {
+      return x.id;
+    })
+    .indexOf("panelSl");
 
   if (mesh.isCompleted) {
     for (let i = 1; i < mesh.loadedMeshes.length; i++) {
       let mesh1 = mesh.loadedMeshes[i];
-    
-      
 
       if (mesh1.material!.name === "panel") {
-    
-       
         mesh1.material!.dispose();
-        
+
         mesh1.material = scene!.materials[panelMatIndex];
-        (mesh1.material as any).albedoTexture.uScale=5;
-        (mesh1.material as any).albedoTexture.vScale=5;
+        (mesh1.material as any).albedoTexture.uScale = 5;
+        (mesh1.material as any).albedoTexture.vScale = 5;
         (mesh1.material as any).bumpTexture!.vScale = 5;
         (mesh1.material as any).bumpTexture!.uScale = 5;
-        continue
-      }
-   
-      else if (mesh1.material!.name === "panel_sl" || mesh1.material!.name === "panel_sr") {
-
+        continue;
+      } else if (
+        mesh1.material!.name === "panel_sl" ||
+        mesh1.material!.name === "panel_sr"
+      ) {
         mesh1.material!.dispose();
         mesh1.material = scene!.materials[panelSlIndex];
-        (mesh1.material as any).albedoTexture.uScale=5;
-        (mesh1.material as any).albedoTexture.vScale=5;
+        (mesh1.material as any).albedoTexture.uScale = 5;
+        (mesh1.material as any).albedoTexture.vScale = 5;
         (mesh1.material as any).bumpTexture.vScale = 5;
         (mesh1.material as any).bumpTexture.uScale = 5;
-        continue
-      }
-      else if (mesh1.material!.name === "panel_zip" ) {
-      
+        continue;
+      } else if (mesh1.material!.name === "panel_zip") {
         mesh1.material!.dispose();
         mesh1.material = scene!.materials[panelZipIndex];
-        continue
+        continue;
+      } else if (mesh1.material!.name === "panel_lin") {
+        mesh1.material!.dispose();
+        mesh1.material = scene!.materials[panelLinIndex];
+        continue;
+      } else if (mesh1.material!.name === "stitch") {
+        mesh1.material!.dispose();
+        mesh1.material = scene!.materials[stitchIndex];
+        continue;
+      } else if (mesh1.material!.name === "metal_zip") {
+        mesh1.material!.dispose();
+        mesh1.material = scene!.materials[metalZipIndex];
+        continue;
+      } else {
+        break;
       }
-
-      
-    else if(mesh1.material!.name === "panel_lin"){
-      mesh1.material!.dispose()
-      mesh1.material =scene!.materials[panelLinIndex]
-      continue
-    }
-
-    else if(mesh1.material!.name === "stitch"){
-      mesh1.material!.dispose()
-      mesh1.material =scene!.materials[stitchIndex]
-      continue
-    }
-    else if(mesh1.material!.name === "metal_zip"){
-      mesh1.material!.dispose()
-      mesh1.material =scene!.materials[metalZipIndex]
-      continue
-    }
-    else{
-      break
-    }
     }
   }
-
-
-
 
   return null;
 };
@@ -343,77 +366,212 @@ export const MeshManager: React.FC<any> = ({ uniMeshTaskLoader }) => {
   const meshName = uniMeshTaskLoader[0].name;
   const loadedAssets = useAssetManager(uniMeshTaskLoader);
 
-  console.log("name : ",meshName)
+  console.log("name : ", meshName);
   // const mesh = loadedAssets.taskNameMap[meshName] as MeshAssetTask;
 
   // JLoadMatAction(scene,meshName,loadedAssets)
- 
-  
 
- 
   return null;
 };
 
+export const SceneDisposer: React.FC<any> = ({ currMeshList }) => {
+  const scene = useScene();
+  let sceneNodes = scene!.rootNodes;
 
-export const SceneDisposer:React.FC<any>=({currMeshList})=>{
-  const scene =useScene()
-  let sceneNodes=scene!.rootNodes
-
-  for (let i = 0; i <  sceneNodes!.length; i++) {
-    if (sceneNodes![i].getClassName()==='Mesh' && sceneNodes![i].name.includes('L') || sceneNodes![i].name.includes('A')) {
-      if(!currMeshList.includes( sceneNodes![i].name)  ){
-    
-        console.log("yes ",sceneNodes![i].name)
+  for (let i = 0; i < sceneNodes!.length; i++) {
+    if (
+      (sceneNodes![i].getClassName() === "Mesh" &&
+        sceneNodes![i].name.includes("L")) ||
+      sceneNodes![i].name.includes("A")
+    ) {
+      if (!currMeshList.includes(sceneNodes![i].name)) {
+        console.log("yes ", sceneNodes![i].name);
         // sceneNodes![i].dispose()
-        for (let mesh of sceneNodes![i].getChildren()){
-           mesh.dispose()
+        for (let mesh of sceneNodes![i].getChildren()) {
+          mesh.dispose();
         }
       }
       //  console.log(sceneNodes![i].name)
     }
   }
-  
-  
 
-return null
-}
+  return null;
+};
 
+export const SwitchManager: React.FC<any> = ({
+  assetSliderState,
+  switchMeshStates,
+}) => {
+  const { partDisable, disableList, curPartsId } = switchMeshStates;
 
+  const scene = useScene();
 
-export const SwitchManager: React.FC<any> = ({assetSliderState,switchMeshStates}) => {
-
-  const {partDisable,disableList,curPartsId}=switchMeshStates
-  
-  const scene =useScene()
-  
-  if(partDisable.flag ){
-      saSceneSetter(scene,disableList,partDisable,curPartsId[assetSliderState.part].jpId)
+  if (partDisable.flag) {
+    saSceneSetter(
+      scene,
+      disableList,
+      partDisable,
+      curPartsId[assetSliderState.part].jpId
+    );
   }
- 
+
   // Why? : MeshLoad
   // saMeshLoaded(scene)
 
   return null;
+};
 
-}
+export const MeshSceneCounter = () => {
+  let scene = useScene();
+  let sceneNodes = scene?.rootNodes;
 
+  // for (let nodes of sceneNodes!){
+  //   console.log("nodes ",nodes)
 
-export const MeshSceneCounter=()=>{
-  let scene =useScene()
-  let sceneNodes =scene?.rootNodes
-  
-
-
-    // for (let nodes of sceneNodes!){
-    //   console.log("nodes ",nodes)
-  
-    // }
-    for (let i = 0; i <  sceneNodes!.length; i++) {
-    if (sceneNodes![i].getClassName()==='Mesh' && sceneNodes![i].name.includes('L') || sceneNodes![i].name.includes('A')) {
-      console.log(sceneNodes![i].name)
+  // }
+  for (let i = 0; i < sceneNodes!.length; i++) {
+    if (
+      (sceneNodes![i].getClassName() === "Mesh" &&
+        sceneNodes![i].name.includes("L")) ||
+      sceneNodes![i].name.includes("A")
+    ) {
+      console.log(sceneNodes![i].name);
     }
   }
 
+  return null;
+};
+
+export const SceneTextureManager: React.FC<any> = ({
+  matDefualtCurData,
+  matState,
+}) => {
+  let scene = useScene();
+  console.log(matDefualtCurData);
+
+  if (matState.state) {
+    JCMatLoad(scene, matState.matType, matState.matMaps, matState.matOver);
+  }
+
+  return null;
+};
+
+const ArtworkLogoManager = () => {
+  let scene = useScene();
+  let sceneNodes = scene?.rootNodes;
+
+  // for (let nodes of sceneNodes!){
+  //   console.log("nodes ",nodes)
+
+  // }
+  for (let i = 0; i < sceneNodes!.length; i++) {
+    if (
+      (sceneNodes![i].getClassName() === "Mesh" &&
+        sceneNodes![i].name.includes("L")) ||
+      sceneNodes![i].name.includes("A")
+    ) {
+      // console.log(sceneNodes![i].name)
+      if (sceneNodes![i].name.includes("fr")) {
+        let mesh = sceneNodes![i];
+        let panel = sceneNodes![i].getChildren()[0];
+        console.log(panel);
+        console.log(mesh);
+        let p = panel as any;
+
+        var decalMaterial = new StandardMaterial("decalMat", scene!);
+        decalMaterial.diffuseTexture = new Texture(
+          "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Hardware/ZipperPuller/mth-zpp-blk-s1/metal_normal.png",
+          scene!
+        );
+        decalMaterial.diffuseTexture.hasAlpha = true;
+
+        (decalMaterial.diffuseTexture as any).vAng = Math.PI;
+
+        var decal = MeshBuilder.CreateDecal("decal", p, {
+          position: new Vector3(0, 7, -0.01),
+          normal: new Vector3(0, 0, -1),
+          size: new Vector3(1, 1, 1),
+        });
+        decal.material = decalMaterial;
+      }
+    }
+  }
+
+  return null;
+};
+
+
+const ArtworkManager=({artworkState})=>{
+
+  
+  const onDecalMaterial=(artworkPath,scene) => {
+    var decalMaterial = new BABYLON.PBRMetallicRoughnessMaterial("decalMat", scene);
+    decalMaterial.baseTexture = new BABYLON.Texture(artworkPath, scene);
+    decalMaterial.baseTexture.hasAlpha = true;
+    (decalMaterial.baseTexture as any).vAng = Math.PI ;
+    decalMaterial.metallic=0;
+    return decalMaterial;
+}
+
+const onDecalBuilder=(mesh,artPosition)=>{
+    let decal;
+    if(artPosition==='Left Chest'){
+        decal = BABYLON.MeshBuilder.CreateDecal("decal", mesh, 
+        {   
+            position: new BABYLON.Vector3(-0.4, 7.6, 0), normal: new BABYLON.Vector3(0, 0, -5), size: new BABYLON.Vector3(1,1,1) 
+        }); 
+    }
+    else if(artPosition==='Back'){
+        decal = BABYLON.MeshBuilder.CreateDecal("decal", mesh, 
+        {   
+            position: new BABYLON.Vector3(0, 7.3, 0), normal: new BABYLON.Vector3(0, 0, 1), size: new BABYLON.Vector3(2,2,2) 
+        }); 
+    }
+ 
+    return decal;
+}
+
+
+
+
+
+let scene = useScene();
+  let sceneNodes = scene?.rootNodes;
+
+  // for (let nodes of sceneNodes!){
+  //   console.log("nodes ",nodes)
+
+  // }
+  for (let i = 0; i < sceneNodes!.length; i++) {
+    if (
+      (sceneNodes![i].getClassName() === "Mesh" &&
+        sceneNodes![i].name.includes("L")) ||
+      sceneNodes![i].name.includes("A")
+    ) {
+      // console.log(sceneNodes![i].name)
+      if (sceneNodes![i].name.includes("fr")) {
+        let mesh = sceneNodes![i];
+        let panel = sceneNodes![i].getChildren()[0];
+        console.log(panel);
+        console.log(mesh);
+        let p = panel as any;
+        console.log(artworkState.position)
+
+        let decal =onDecalBuilder(p,artworkState.position)
+        decal.material = onDecalMaterial("https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Hardware/ZipperPuller/mth-zpp-blk-s1/metal_normal.png",scene)
+        
+        // for (let nodes of sceneNodes!){
+        //    if(nodes.name ==="decal"){
+        //     (nodes as any).absolutePosition.z=0
+        //     console.log("decal ",(nodes as any).absolutePosition)
+        //    }
+        // }
+   
+      }
+
+      
+    }
+  }
 
 
   return null

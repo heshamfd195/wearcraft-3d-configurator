@@ -1,15 +1,24 @@
 import React from "react";
 import { useScreenSize } from "../../hooks/get-screen-size";
 import DropDownOptions from "../../ui-components/stateful/dropdown/drop-down-options";
+import { useDispatch } from "react-redux";
+import { customizeActions } from "../../store/customize-slice";
 
 
 let data1 = ["Sheep Skin", "Cowhide"];
-let data2 = ["Full", "Torso","Sleeves"];
+let data2 = ["Full Jacket", "Torso","Sleeves"];
 let data3 = ["Sheep Skin","Shearling"]
 // let data3 = ["Full", "Torso","Sleeves"];
 
 const Material = () => {
+  const dispatch =useDispatch()
   const { isMobile } = useScreenSize();
+
+  const onSelected=(val:any)=>{
+  //  console.log("value ",val)
+   dispatch(customizeActions._updateMatOver(val))
+  }
+
   return (
     <div>
       {!isMobile && (
@@ -18,7 +27,7 @@ const Material = () => {
           <div className="absolute z-10 left-0 ml-8 w-[22%] h-[70%] bg-white top-[10%] rounded-md py-5">
             <p className="text-3xl font-medium">Select Material</p>
             <SelectMat label={'Leather Type'} data={data1} initial={'Cowhide'} id="leatherDropDown"/>
-            <SelectMat label={'Material Over'} data={data2} initial={'Full'} id="leatherPlaceDropDown"/>
+            <SelectMat label={'Material Over'} data={data2} initial={'Full'} id="leatherPlaceDropDown" onValue={onSelected}/>
             <SelectMat label={'Fur'} data={data3} initial={'Shearling'} id="furDropDown"/>
           </div>
 
@@ -37,7 +46,7 @@ export default Material;
 const SelectMat = (props:any) => {
   return <div className="flex flex-col space-y-2 mx-6 my-5">
     <p className="text-xl font-medium">{props.label}</p>
-    <DropDownOptions data ={props.data} initial={props.initial} id={props.id}/>
+    <DropDownOptions data ={props.data} initial={props.initial} id={props.id} onValue={props.onValue}/>
 
   </div>;
 };

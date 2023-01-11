@@ -61,7 +61,7 @@ const Style = () => {
           {/* Right*/}
           <div className="absolute z-10 right-0 mr-8 w-[22%] h-[70%] bg-white top-[10%] rounded-md">
             <p className="text-3xl font-medium">Try it</p>
-            <StyleSwap list={data}/>
+            {/* <StyleSwap list={data}/> */}
           </div>
         </div>
       }

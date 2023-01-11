@@ -50,8 +50,15 @@ export const saSceneSetter=(scene:any,disableList:string[],disablePart:any,currP
 
   try{
     // Check the Disable
-    if(disablePart.flag)
-      sceneNodes[indexFinder(disablePart.name)].setEnabled(false)
+    if(disablePart.flag){
+      console.log("disable Name:",disablePart.name)
+      let index =indexFinder(disablePart.name)
+      if(index !=-1){
+        sceneNodes[indexFinder(disablePart.name)].setEnabled(false)
+      }
+      
+    }
+      
     // Check the DisableList to Enable
     if (disableList.length !== 0 && disablePart.mode === assetSwitchState.DISABLED_MODE_OLD){
       console.log("curPart enable:",currPart)

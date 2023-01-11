@@ -6,6 +6,7 @@ import SliderTab from "../../ui-components/core/slider-tab/SliderTab";
 import { appStateActions } from "../../store/app-slice";
 import { AssetSlider } from "../sliders/asset-slider";
 import { customizeActions } from "../../store/customize-slice";
+import SliderHub from "../sliders/slider-hub";
 
 const stageName = ["style", "material", "color", "artwork"];
 
@@ -20,8 +21,17 @@ const CustomizeDesk: FC<any> = () => {
   const onNext = () => {
     if (pointer < 3) {
       let stagePointer = pointer + 1;
+      dispatch(customizeActions._updateUniMeshTask())
       dispatch(appStateActions._updateStagePointer(stagePointer));
+      dispatch(customizeActions._updateStageStates(`is_${stageName[stagePointer]}`))
+      dispatch(customizeActions._setCurMeshList())
+      dispatch(customizeActions._resetPartSwitch())
+      
+     
+      
+      
       navigate(stageName[stagePointer]);
+      navigate(0)
     }
     if (pointer === 3) {
       navigate("/preview");
@@ -32,12 +42,14 @@ const CustomizeDesk: FC<any> = () => {
     if (pointer > 0) {
       let stagePointer = pointer - 1;
       dispatch(appStateActions._updateStagePointer(stagePointer));
+      dispatch(customizeActions._updateStageStates(`is_${stageName[stagePointer]}`))
       navigate(stageName[stagePointer]);
     } else if (pointer === 0) {
       dispatch(appStateActions._resetStages());
       dispatch(appStateActions._updateStyleList({prev:0,curr:0}))
       dispatch(customizeActions._resetMeshTask())
       dispatch(customizeActions._updadeMeshLoadedState(false))
+      
       dispatch(customizeActions.reset())
       navigate("/category");
     }
@@ -68,7 +80,7 @@ const CustomizeDesk: FC<any> = () => {
         </div>
         {/* Slider*/}
         <div className="w-1/2 my-auto">
-          <AssetSlider />
+        <SliderHub/>
         </div>
         {/* Next*/}
         <div className=" w-1/4 flex justify-center items-center">

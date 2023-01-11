@@ -48,6 +48,7 @@ import {
 import { saMeshLoaded, saSceneSetter } from "../actions/scene/switchActions";
 import { customizeActions } from "../../store/customize-slice";
 import { MyFallback } from "../manager/manager";
+import { useNavigate } from "react-router-dom";
 
 let loadState = {
   meshCount: 0,
@@ -56,6 +57,9 @@ let loadState = {
 };
 
 export const ConfiguratorScene = () => {
+  const navigate =useNavigate()
+
+  // navigate(0)
 
   const dispatch=useDispatch()
   // const meshTaskLoader = useSelector(
@@ -64,6 +68,8 @@ export const ConfiguratorScene = () => {
   const sceneSettingState = useSelector(
     (state: any) => state.customizeState._sceneSettingState
   );
+
+  
 
   const matDefaultState = useSelector(
     (state: any) => state.customizeState._matDefaultState
@@ -76,7 +82,11 @@ export const ConfiguratorScene = () => {
   );
 
   const switchMeshStates =useSelector((state: any) => state.customizeState._switchMeshStates)
-  const {meshLoadState} =useSelector((state: any) => state.customizeState._switchMeshStates)
+  const {curPartsId,currMeshList} =useSelector((state: any) => state.customizeState._switchMeshStates)
+  const jpUniMeshLoader=useSelector((state: any) => state.customizeState._jpUniMeshLoader)
+  const {is_style,is_material,is_color,is_artwork} =useSelector((state: any) => state.customizeState._stageFlags)
+
+
   const assetSliderState = useSelector(
     (state: any) => state.customizeState._assetSliderState
   );
@@ -94,6 +104,8 @@ export const ConfiguratorScene = () => {
     console.log("true")
     dispatch(customizeActions._updadeMeshLoadedState(true))
   }
+
+  
 
   
 
@@ -150,7 +162,7 @@ export const ConfiguratorScene = () => {
                < MyFallback onMeshFallbackLoaded={onMeshFallbackLoaded}/>
               }
             >
-              {Object.keys(meshTaskLoader).map(function (
+              {  Object.keys(meshTaskLoader).map(function (
                 key: string,
                 index: number
               ) {
@@ -165,7 +177,11 @@ export const ConfiguratorScene = () => {
               })}
                  {/* {meshStates.loaded && <SwitchManager/>} */}
                  {/* {meshLoadState.isMeshLoaded &&  <SwitchManager assetSliderState={assetSliderState} switchMeshStates={switchMeshStates}/>} */}
-                 { <SwitchManager assetSliderState={assetSliderState} switchMeshStates={switchMeshStates}/>}
+                 { is_style && <SwitchManager assetSliderState={assetSliderState} switchMeshStates={switchMeshStates}/>}
+                 {/* { is_material && <SceneDisposer currMeshList={currMeshList}/>} */}
+                 {/* {<MeshManager uniMeshTaskLoader={jpUniMeshLoader}/>} */}
+
+
                  
                 
             </Suspense>
@@ -242,7 +258,7 @@ export const MeshLoader1: React.FC<any> = ({ jpMeshTaskLoader }) => {
   const mesh = loadedAssets.taskNameMap[meshName] as MeshAssetTask;
   const part = mesh.loadedMeshes[0];
   part.name = meshName;
-  console.log("mesh loaded : ",meshName)
+  // console.log("mesh loaded : ",meshName)
 
 
   // JLoadMatAction(scene,meshName,loadedAssets)
@@ -274,8 +290,10 @@ export const MeshLoader1: React.FC<any> = ({ jpMeshTaskLoader }) => {
         (mesh1.material as any).albedoTexture.vScale=5;
         (mesh1.material as any).bumpTexture!.vScale = 5;
         (mesh1.material as any).bumpTexture!.uScale = 5;
+        continue
       }
-      if (mesh1.material!.name === "panel_sl" || mesh1.material!.name === "panel_sr") {
+   
+      else if (mesh1.material!.name === "panel_sl" || mesh1.material!.name === "panel_sr") {
 
         mesh1.material!.dispose();
         mesh1.material = scene!.materials[panelSlIndex];
@@ -283,60 +301,82 @@ export const MeshLoader1: React.FC<any> = ({ jpMeshTaskLoader }) => {
         (mesh1.material as any).albedoTexture.vScale=5;
         (mesh1.material as any).bumpTexture.vScale = 5;
         (mesh1.material as any).bumpTexture.uScale = 5;
+        continue
       }
-      if (mesh1.material!.name === "panel_zip" ) {
-
+      else if (mesh1.material!.name === "panel_zip" ) {
+      
         mesh1.material!.dispose();
         mesh1.material = scene!.materials[panelZipIndex];
+        continue
       }
 
       
-    if(mesh1.material!.name === "panel_lin"){
+    else if(mesh1.material!.name === "panel_lin"){
       mesh1.material!.dispose()
       mesh1.material =scene!.materials[panelLinIndex]
+      continue
     }
 
-    if(mesh1.material!.name === "stitch"){
+    else if(mesh1.material!.name === "stitch"){
       mesh1.material!.dispose()
       mesh1.material =scene!.materials[stitchIndex]
+      continue
     }
-    if(mesh1.material!.name === "metal_zip"){
+    else if(mesh1.material!.name === "metal_zip"){
       mesh1.material!.dispose()
       mesh1.material =scene!.materials[metalZipIndex]
+      continue
+    }
+    else{
+      break
     }
     }
   }
 
 
 
-  //  p.material=scene!.materials[panelMatIndex]
-  //  p.material.albedoTexture.uScale=5
-  //    if (part.material.name === "panel"  ) {
-  //     mesh.material.dispose()
-  //     mesh.material =scene.materials[panelMatIndex]
-
-  //     mesh.material.albedoTexture.uScale=5
-  //     mesh.material.albedoTexture.vScale=5
-  //     mesh.material.bumpTexture.vScale = 5;
-  //     mesh.material.bumpTexture.uScale = 5;
-  // }
-
-  // console.log(mesh.isCompleted)
-
-  // useEffect(()=>{
-  //   if(mesh.isCompleted){
-  //     JLoadMatAction(scene,meshName,loadedAssets)
-  //   }
-
-  //  },[mesh.isCompleted])
-
-  // if(meshName !=="brm-hem-A1D1"){
-  //   JLoadMatAction(scene,meshName,loadedAssets)
-
-  // }
 
   return null;
 };
+export const MeshManager: React.FC<any> = ({ uniMeshTaskLoader }) => {
+  let scene = useScene();
+  const meshName = uniMeshTaskLoader[0].name;
+  const loadedAssets = useAssetManager(uniMeshTaskLoader);
+
+  console.log("name : ",meshName)
+  // const mesh = loadedAssets.taskNameMap[meshName] as MeshAssetTask;
+
+  // JLoadMatAction(scene,meshName,loadedAssets)
+ 
+  
+
+ 
+  return null;
+};
+
+
+export const SceneDisposer:React.FC<any>=({currMeshList})=>{
+  const scene =useScene()
+  let sceneNodes=scene!.rootNodes
+
+  for (let i = 0; i <  sceneNodes!.length; i++) {
+    if (sceneNodes![i].getClassName()==='Mesh' && sceneNodes![i].name.includes('L') || sceneNodes![i].name.includes('A')) {
+      if(!currMeshList.includes( sceneNodes![i].name)  ){
+    
+        console.log("yes ",sceneNodes![i].name)
+        // sceneNodes![i].dispose()
+        for (let mesh of sceneNodes![i].getChildren()){
+           mesh.dispose()
+        }
+      }
+      //  console.log(sceneNodes![i].name)
+    }
+  }
+  
+  
+
+return null
+}
 
 
 

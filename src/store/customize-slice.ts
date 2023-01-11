@@ -5,6 +5,7 @@ import { TaskType } from "react-babylonjs";
 const initialState = {
   _material:[],
   _meshTaskLoader:[] as any[],
+  _jpUniMeshLoader:[] as any[],
   _meshTaskStates:{
     isProcessed:false
   },
@@ -48,21 +49,20 @@ const initialState = {
   
   },
 
-  _jpMeshStates:{
-    isMeshState:false,
-    disposePart:'',
-    disposeState:false,
-    firstMeshLoad:true,
-    partName:'',
-    partMeshLoad:false,
-    prevPartName:'',
-    partEnableId:'',
-  },
+
   currJacketData:[],
+
+  _stageFlags:{
+    is_style:true,
+    is_material:false,
+    is_color:false,
+    is_artwork:false
+  },
 
 
    _switchMeshStates:{
     meshTaskLoader:{},
+    currMeshList:[] as any,
     meshLoadState:{
       isMeshLoaded:false,
       mcr:8,
@@ -91,6 +91,9 @@ const initialState = {
        jpId:'',
      },
      hem:{
+       jpId:'',
+     },
+     chestPockets:{
        jpId:'',
      },
      waistPockets:{
@@ -138,10 +141,7 @@ const customizeSlice = createSlice({
     _updateAssetSlider(state,action){
       state._assetSliderState.part=action.payload
     },
-    _jpRemoveMesh(state,action){
-      let part=action.payload;
-      state._jpMeshStates.prevPartName = state._meshTaskLoader[part].pop()
-    },
+
     _jpAddMeshLoader(state,action){
       let meshData =action.payload;
       let meshtask =meshData.jpMeshTask
@@ -150,14 +150,8 @@ const customizeSlice = createSlice({
   
      },
 
-     _jpMeshDisposer(state,action){
-      let val =action.payload;
-      state._jpMeshStates.disposeState=val.flag;
-      state._jpMeshStates.disposePart=val.name;
-    },
-    _jpUpdateEnableId(state,action){
-      state._jpMeshStates.partEnableId =action.payload;
-    },
+
+
     _updateCurrSwitchPart(state,action){
       let jPart =action.payload;
       state.currParts[jPart.name].jpId =jPart.jpId;
@@ -219,6 +213,53 @@ const customizeSlice = createSlice({
     _updadeMeshLoadedState(state,action){
       state._switchMeshStates.meshLoadState.isMeshLoaded=action.payload
     },
+    _updateUniMeshTask(state){
+    
+      let currMeshTaskLoader =state._switchMeshStates.meshTaskLoader
+      
+      Object.keys(currMeshTaskLoader).map(
+        function(key, index){
+          if(currMeshTaskLoader[key][0] !== undefined)
+          state._jpUniMeshLoader.push(currMeshTaskLoader[key][0])
+        })
+  
+    },
+
+    _updateStageStates(state,action){
+      let stageChange =action.payload
+      let stageFlags =state._stageFlags
+
+      Object.keys(stageFlags).map(
+        function(key, index){
+          state._stageFlags[key]=false;
+        })
+
+      state._stageFlags[stageChange]=true
+
+    },
+    _setCurMeshList(state){
+     let curParts = state._switchMeshStates.curPartsId
+
+     Object.keys(curParts).map(
+      function(key, index){
+        state._switchMeshStates.currMeshList.push(curParts[key].jpId)
+        
+      })
+    
+
+
+    },
+
+    _resetPartSwitch(state){
+      state._switchMeshStates.partDisable.flag=false
+      state._switchMeshStates.partDisable.mode=""
+      state._switchMeshStates.partDisable.name=""
+      state._switchMeshStates.partEnable.flag=false
+      state._switchMeshStates.partEnable.name=""
+      state._switchMeshStates.disableList=[]
+    },
+
+   
     reset(state){
       return initialState
     }

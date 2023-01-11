@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../../App.css";
-import AssetCard from "./card";
+import AssetCard from "./asset-card";
 import { useScreenSize } from "../../hooks/get-screen-size";
 import { useMcrPartsQuery } from "../../api/queries/get-assetstore";
 import { useSelector } from "react-redux";
@@ -40,6 +40,8 @@ import { useSelector } from "react-redux";
 //     url: "/assets/fronts/crm-fr-L4D1.png",
 //   },
 // ];
+
+
 export const AssetSlider = () => {
   const assetSliderState = useSelector(
     (state: any) => state.customizeState._assetSliderState

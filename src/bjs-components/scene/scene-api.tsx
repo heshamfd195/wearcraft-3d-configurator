@@ -10,10 +10,12 @@ import { IPMeshTask } from "./utilities/interfaces";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Button } from "../../ui-components/core/buttons/Button";
 import { customizeActions } from "../../store/customize-slice";
+import { ThreeDots } from "react-loader-spinner";
 
 const SceneAPI = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const { base } = useSelector((state: any) => state.appState._appState);
   const meshTaskStates = useSelector(
     (state: any) => state.customizeState._meshTaskStates
@@ -155,7 +157,11 @@ const SceneAPI = () => {
 
   return (
     <>
-      <h1>{base.id}</h1>
+      {/* <h1>{base.id}</h1> */}
+      <div className="mx-auto w-screen h-screen">
+      <ThreeDots width={100} height={100} color="black"  />
+      </div>
+
       {/* {isSuccess && <h1>{`${base.id} is fetched`}</h1>} */}
 
       {/* {sceneSuccess && navigate("/customize/style")} */}

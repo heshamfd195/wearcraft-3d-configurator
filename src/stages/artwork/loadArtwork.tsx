@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { customizeActions } from "../../store/customize-slice";
+import { Button } from "../../ui-components/core/buttons/Button";
 
 const UploadAndDisplayImage = () => {
     const dispatch =useDispatch()
@@ -12,16 +13,16 @@ const UploadAndDisplayImage = () => {
   return (
     <div>
       {selectedImage && (
-        <div>
-        <img alt="not fount" width={"250px"} src={URL.createObjectURL(selectedImage)} id="artlogo" className="bg-gray-300"/>
+        <div className="flex flex-col items-center">
+        <img alt="not fount"  src={URL.createObjectURL(selectedImage)} id="artlogo" className="bg-gray-300 w-[50%] "/>
         <br />
-        <button onClick={()=>setSelectedImage(null)}>Remove</button>
+        <Button onClick={()=>setSelectedImage(null)} name="Remove" size="sm" variant="outlined" className="text-red-400 border-red-500"/>
         </div>
       )}
       <br />
-     
-      <br /> 
+ 
       <input
+        className="text-md "
         type="file"
         name="myImage"
         accept="image/png"

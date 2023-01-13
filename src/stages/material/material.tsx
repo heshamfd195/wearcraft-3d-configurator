@@ -28,7 +28,7 @@ const Material = () => {
             <p className="text-3xl font-medium">Select Material</p>
             <SelectMat label={'Leather Type'} data={data1} initial={'Cowhide'} id="leatherDropDown"/>
             <SelectMat label={'Material Over'} data={data2} initial={'Full'} id="leatherPlaceDropDown" onValue={onSelected}/>
-            <SelectMat label={'Fur'} data={data3} initial={'Shearling'} id="furDropDown"/>
+            {/* <SelectMat label={'Fur'} data={data3} initial={'Shearling'} id="furDropDown"/> */}
           </div>
 
           {/* Right*/}

@@ -20,9 +20,12 @@ function Category() {
 
   return (
     <div className="items-center flex flex-col space-y-5 my-10">
-      <BsChevronLeft onClick={() => navigate("/gender")} />
-      <p className="text-3xl">Select CategoryTEST</p>
-      <div className={`flex desktop:flex-row mobile:flex-col gap-2`}>
+          <div className='flex flex-row' onClick={()=>navigate("/gender")}>
+          <BsChevronLeft  className='h-7 w-7'/>
+          <p className='text-xl font-medium'>Back</p>
+          </div>
+      <p className="text-3xl">Select Jacket Style</p>
+      <div className={`flex desktop:flex-row mobile:flex-col gap-3`}>
 
         {catResponse.isSuccess &&
           catResponse.data

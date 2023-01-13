@@ -28,14 +28,15 @@ const [height,width,]=screen
 
   return (
     <div className="items-center flex flex-col space-y-5 my-10">
-      <p className="text-2xl ">How to customize</p>
+      <p className="text-2xl ">Begin Your Customization</p>
       <Button
         name="Customize"
         className="text-2xl font-semibold bg-primary-main"
         color="contrast"
         onClick={ onNavigate}
+        size="lg"
       />
-      <h1>{`Device: ${device}`}</h1>
+      {/* <h1>{`Device: ${device}`}</h1> */}
  
 
     </div>

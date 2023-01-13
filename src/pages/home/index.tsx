@@ -7,10 +7,13 @@ import { PURGE } from "redux-persist";
 import { BsTypeH1 } from "react-icons/bs";
 import { useScreenSize } from "../../hooks/get-screen-size";
 import { Select ,Option} from "@material-tailwind/react";
+import { useDispatch } from "react-redux";
+import { customizeActions } from "../../store/customize-slice";
 
 
 function Home() {
   const navigate =useNavigate()
+  const dispatch=useDispatch()
   const onNavigate=()=>{
     persistor.purge()
     navigate("/gender")
@@ -22,7 +25,7 @@ const [height,width,]=screen
 
 
 
-
+dispatch(customizeActions.reset())
 
 
 

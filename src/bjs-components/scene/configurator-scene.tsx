@@ -599,9 +599,9 @@ const ArtworkLogoManagerTest = ({artworkState}) => {
     size=new Vector3(0.5, 0.5, 0.5)
   }
   else if(artworkState.decal ==='Right Chest'){
-    position =new Vector3(0.4, 7.6, 0.001)
-    normal=new Vector3(0, 0, -1)
-    size=new Vector3(1, 1, 1)
+    position =new Vector3(0.45, 7.7, 0.001)
+    normal =new Vector3(0, 0, -1)
+    size=new Vector3(0.5, 0.5, 0.5)
   }
   else if(artworkState.decal ==='Back'){
     console.log("bk runs")

@@ -5,6 +5,7 @@ import { Button } from "../../ui-components/core/buttons/Button";
 import DropDownOptions from "../../ui-components/stateful/dropdown/drop-down-options";
 import UploadAndDisplayImage from "./loadArtwork";
 import { customizeActions } from "../../store/customize-slice";
+import { useNavigate } from "react-router-dom";
 
 const list= [
   { name: "Request",value:"request"},
@@ -55,6 +56,7 @@ export default Artwork;
 
 
 export const StyleList: React.FC<any> = () => {
+  const navigate=useNavigate()
 
   const [isLogo,setLogo]=useState(false)
   const dispatch = useDispatch()
@@ -115,7 +117,9 @@ export const StyleList: React.FC<any> = () => {
     if(value==='logo'){
       setLogo(true)
     }
-
+    if(value==='request'){
+      navigate("/request")
+    }
   }
 
   return (

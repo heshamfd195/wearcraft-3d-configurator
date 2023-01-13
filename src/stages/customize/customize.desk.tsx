@@ -11,6 +11,7 @@ import SliderHub from "../sliders/slider-hub";
 const stageName = ["style", "material", "color", "artwork"];
 
 const CustomizeDesk: FC<any> = () => {
+  const [isPreview ,setPreview]=useState(false)
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -34,12 +35,18 @@ const CustomizeDesk: FC<any> = () => {
       
       }
       navigate(stageName[stagePointer]);
+      console.log(stagePointer)
    
    
     }
     if (pointer === 3) {
-      navigate("/preview");
+      setPreview(true)
+      navigate("preview");
+      
+
     }
+
+    
   };
 
   const onBack = () => {
@@ -55,6 +62,7 @@ const CustomizeDesk: FC<any> = () => {
       dispatch(customizeActions._updadeMeshLoadedState(false))
       
       dispatch(customizeActions.reset())
+      setPreview(false)
       navigate("/category");
     }
   };
@@ -65,7 +73,7 @@ const CustomizeDesk: FC<any> = () => {
       <div className="absolute h-[10%] flex flex-row   space-x-0 z-10 w-full">
         <div className=" w-1/3 mobile:w-mw1"></div>
         <div className="flex justify-center grow pt-5">
-          <SliderTab tabs={list} n={pointer} />
+          {!isPreview && <SliderTab tabs={list} n={pointer} />}
         </div>
         <div className=" w-1/3 mobile:w-mw1 "></div>
       </div>
@@ -88,14 +96,24 @@ const CustomizeDesk: FC<any> = () => {
         </div>
         {/* Next*/}
         <div className=" w-1/4 flex justify-center items-center">
-          <StageButton
-            name="Next"
+     { !isPreview &&    <StageButton
+            name={"Next"}
             next
             color="contrast"
             size="lg"
             textSize="2xl"
             onClick={onNext}
+          />}
+          {isPreview &&
+            <StageButton
+            name={"Submit"}
+            next
+            color="contrast"
+            size="lg"
+            textSize="2xl"
+            onClick={()=>{navigate("/submit")}}
           />
+          }
         </div>
       </div>
     </div>

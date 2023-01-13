@@ -1,26 +1,33 @@
-import React from "react";
-import { StageButton } from "../../ui-components/core/buttons/StageButton";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useScreenSize } from "../../hooks/get-screen-size";
+import { Button } from "../../ui-components/core/buttons/Button";
 
-function Preview() {
-  const navigate = useNavigate();
 
-  const onBack = () => {
-    navigate(-1);
-  };
+import { customizeActions } from "../../store/customize-slice";
+
+
+
+const Preview = () => {
+
+  const dispatch =useDispatch()
+  const { isMobile } = useScreenSize();
+
+
+
   return (
-    <div className="w-screen h-screen">
-      <div className="absolute bottom-0 left-0 w-1/4">
-        <StageButton
-          name="Back"
-          back
-          size="lg"
-          textSize="2xl"
-          onClick={onBack}
-        />
-      </div>
+    <div>
+  {!isMobile && (
+        <div>
+      
+
+        </div>
+      )}
     </div>
+
   );
-}
+};
 
 export default Preview;
+
+

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useScreenSize } from "../../hooks/get-screen-size";
 import { Button } from "../../ui-components/core/buttons/Button";
 import DropDownOptions from "../../ui-components/stateful/dropdown/drop-down-options";
+import UploadAndDisplayImage from "./loadArtwork";
 
 const list= [
   { name: "Request",value:"request"},
@@ -98,6 +99,7 @@ export const StyleList: React.FC<any> = () => {
       {/* {dList?.map((button: any, index: number) => {
         return <Select key={index} options={button.options} defaultInputValue={button.name} />
       })} */}
+      <UploadAndDisplayImage/>
 
 
 

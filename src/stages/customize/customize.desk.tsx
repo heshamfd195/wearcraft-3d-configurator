@@ -29,11 +29,12 @@ const CustomizeDesk: FC<any> = () => {
       
      
       
-      
-      navigate(stageName[stagePointer]);
       if(stageName[stagePointer]==='material'){
-        navigate(0)
+      //  navigate(0)
+      
       }
+      navigate(stageName[stagePointer]);
+   
    
     }
     if (pointer === 3) {

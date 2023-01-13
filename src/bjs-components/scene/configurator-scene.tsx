@@ -1,9 +1,12 @@
 import {
   Color4,
   CubeTexture,
+  DynamicTexture,
   HDRCubeTexture,
+  Mesh,
   MeshAssetTask,
   MeshBuilder,
+  PBRMetallicRoughnessMaterial,
   StandardMaterial,
   Texture,
   Vector3,
@@ -202,7 +205,8 @@ export const ConfiguratorScene = () => {
                   matState={matState}
                 />
               )}
-              {/* {is_artwork && <ArtworkManager artworkState={artworkState}/>} */}
+              {/* {is_artwork && <ArtworkManager artworkState={artworkState} />} */}
+              {is_artwork && artworkState.flag &&<ArtworkLogoManagerTest artworkState={artworkState}/>}
               {/* { is_material && <SceneDisposer currMeshList={currMeshList}/>} */}
               {/* {<MeshManager uniMeshTaskLoader={jpUniMeshLoader}/>} */}
             </Suspense>
@@ -318,7 +322,7 @@ export const MeshLoader1: React.FC<any> = ({ jpMeshTaskLoader }) => {
       let mesh1 = mesh.loadedMeshes[i];
 
       try {
-          console.log(mesh1.name)
+        console.log(mesh1.name);
         if (mesh1.material!.name === "panel") {
           mesh1.material!.dispose();
 
@@ -358,228 +362,363 @@ export const MeshLoader1: React.FC<any> = ({ jpMeshTaskLoader }) => {
         } else {
           break;
         }
-
-      }
-      catch {
-        break
+      } catch {
+        break;
       }
     }
   }
 
-    return null;
-  };
-  export const MeshManager: React.FC<any> = ({ uniMeshTaskLoader }) => {
-    let scene = useScene();
-    const meshName = uniMeshTaskLoader[0].name;
-    const loadedAssets = useAssetManager(uniMeshTaskLoader);
+  return null;
+};
+export const MeshManager: React.FC<any> = ({ uniMeshTaskLoader }) => {
+  let scene = useScene();
+  const meshName = uniMeshTaskLoader[0].name;
+  const loadedAssets = useAssetManager(uniMeshTaskLoader);
 
-    console.log("name : ", meshName);
-    // const mesh = loadedAssets.taskNameMap[meshName] as MeshAssetTask;
+  console.log("name : ", meshName);
+  // const mesh = loadedAssets.taskNameMap[meshName] as MeshAssetTask;
 
-    // JLoadMatAction(scene,meshName,loadedAssets)
+  // JLoadMatAction(scene,meshName,loadedAssets)
 
-    return null;
-  };
+  return null;
+};
 
-  export const SceneDisposer: React.FC<any> = ({ currMeshList }) => {
-    const scene = useScene();
-    let sceneNodes = scene!.rootNodes;
+export const SceneDisposer: React.FC<any> = ({ currMeshList }) => {
+  const scene = useScene();
+  let sceneNodes = scene!.rootNodes;
 
-    for (let i = 0; i < sceneNodes!.length; i++) {
-      if (
-        (sceneNodes![i].getClassName() === "Mesh" &&
-          sceneNodes![i].name.includes("L")) ||
-        sceneNodes![i].name.includes("A")
-      ) {
-        if (!currMeshList.includes(sceneNodes![i].name)) {
-          console.log("yes ", sceneNodes![i].name);
-          // sceneNodes![i].dispose()
-          for (let mesh of sceneNodes![i].getChildren()) {
-            mesh.dispose();
-          }
-        }
-        //  console.log(sceneNodes![i].name)
-      }
-    }
-
-    return null;
-  };
-
-  export const SwitchManager: React.FC<any> = ({
-    assetSliderState,
-    switchMeshStates,
-  }) => {
-    const { partDisable, disableList, curPartsId } = switchMeshStates;
-
-    const scene = useScene();
-
-    if (partDisable.flag) {
-      saSceneSetter(
-        scene,
-        disableList,
-        partDisable,
-        curPartsId[assetSliderState.part].jpId
-      );
-    }
-
-    // Why? : MeshLoad
-    // saMeshLoaded(scene)
-
-    return null;
-  };
-
-  export const MeshSceneCounter = () => {
-    let scene = useScene();
-    let sceneNodes = scene?.rootNodes;
-
-    // for (let nodes of sceneNodes!){
-    //   console.log("nodes ",nodes)
-
-    // }
-    for (let i = 0; i < sceneNodes!.length; i++) {
-      if (
-        (sceneNodes![i].getClassName() === "Mesh" &&
-          sceneNodes![i].name.includes("L")) ||
-        sceneNodes![i].name.includes("A")
-      ) {
-        console.log(sceneNodes![i].name);
-      }
-    }
-
-    return null;
-  };
-
-  export const SceneTextureManager: React.FC<any> = ({
-    matDefualtCurData,
-    matState,
-  }) => {
-    let scene = useScene();
-    console.log(matDefualtCurData);
-
-    if (matState.state) {
-      JCMatLoad(scene, matState.matType, matState.matMaps, matState.matOver);
-    }
-
-    return null;
-  };
-
-  const ArtworkLogoManager = () => {
-    let scene = useScene();
-    let sceneNodes = scene?.rootNodes;
-
-    // for (let nodes of sceneNodes!){
-    //   console.log("nodes ",nodes)
-
-    // }
-    for (let i = 0; i < sceneNodes!.length; i++) {
-      if (
-        (sceneNodes![i].getClassName() === "Mesh" &&
-          sceneNodes![i].name.includes("L")) ||
-        sceneNodes![i].name.includes("A")
-      ) {
-        // console.log(sceneNodes![i].name)
-        if (sceneNodes![i].name.includes("fr")) {
-          let mesh = sceneNodes![i];
-          let panel = sceneNodes![i].getChildren()[0];
-          console.log(panel);
-          console.log(mesh);
-          let p = panel as any;
-
-          var decalMaterial = new StandardMaterial("decalMat", scene!);
-          decalMaterial.diffuseTexture = new Texture(
-            "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Hardware/ZipperPuller/mth-zpp-blk-s1/metal_normal.png",
-            scene!
-          );
-          decalMaterial.diffuseTexture.hasAlpha = true;
-
-          (decalMaterial.diffuseTexture as any).vAng = Math.PI;
-
-          var decal = MeshBuilder.CreateDecal("decal", p, {
-            position: new Vector3(0, 7, -0.01),
-            normal: new Vector3(0, 0, -1),
-            size: new Vector3(1, 1, 1),
-          });
-          decal.material = decalMaterial;
+  for (let i = 0; i < sceneNodes!.length; i++) {
+    if (
+      (sceneNodes![i].getClassName() === "Mesh" &&
+        sceneNodes![i].name.includes("L")) ||
+      sceneNodes![i].name.includes("A")
+    ) {
+      if (!currMeshList.includes(sceneNodes![i].name)) {
+        console.log("yes ", sceneNodes![i].name);
+        // sceneNodes![i].dispose()
+        for (let mesh of sceneNodes![i].getChildren()) {
+          mesh.dispose();
         }
       }
+      //  console.log(sceneNodes![i].name)
     }
-
-    return null;
-  };
-
-
-  const ArtworkManager = ({ artworkState }) => {
-
-
-    const onDecalMaterial = (artworkPath, scene) => {
-      var decalMaterial = new BABYLON.PBRMetallicRoughnessMaterial("decalMat", scene);
-      decalMaterial.baseTexture = new BABYLON.Texture(artworkPath, scene);
-      decalMaterial.baseTexture.hasAlpha = true;
-      (decalMaterial.baseTexture as any).vAng = Math.PI;
-      decalMaterial.metallic = 0;
-      return decalMaterial;
-    }
-
-    const onDecalBuilder = (mesh, artPosition) => {
-      let decal;
-      if (artPosition === 'Left Chest') {
-        decal = BABYLON.MeshBuilder.CreateDecal("decal", mesh,
-          {
-            position: new BABYLON.Vector3(-0.4, 7.6, 0), normal: new BABYLON.Vector3(0, 0, -5), size: new BABYLON.Vector3(1, 1, 1)
-          });
-      }
-      else if (artPosition === 'Back') {
-        decal = BABYLON.MeshBuilder.CreateDecal("decal", mesh,
-          {
-            position: new BABYLON.Vector3(0, 7.3, 0), normal: new BABYLON.Vector3(0, 0, 1), size: new BABYLON.Vector3(2, 2, 2)
-          });
-      }
-
-      return decal;
-    }
-
-
-
-
-
-    let scene = useScene();
-    let sceneNodes = scene?.rootNodes;
-
-    // for (let nodes of sceneNodes!){
-    //   console.log("nodes ",nodes)
-
-    // }
-    for (let i = 0; i < sceneNodes!.length; i++) {
-      if (
-        (sceneNodes![i].getClassName() === "Mesh" &&
-          sceneNodes![i].name.includes("L")) ||
-        sceneNodes![i].name.includes("A")
-      ) {
-        // console.log(sceneNodes![i].name)
-        if (sceneNodes![i].name.includes("fr")) {
-          let mesh = sceneNodes![i];
-          let panel = sceneNodes![i].getChildren()[0];
-          console.log(panel);
-          console.log(mesh);
-          let p = panel as any;
-          console.log(artworkState.position)
-
-          let decal = onDecalBuilder(p, artworkState.position)
-          decal.material = onDecalMaterial("https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Hardware/ZipperPuller/mth-zpp-blk-s1/metal_normal.png", scene)
-
-          // for (let nodes of sceneNodes!){
-          //    if(nodes.name ==="decal"){
-          //     (nodes as any).absolutePosition.z=0
-          //     console.log("decal ",(nodes as any).absolutePosition)
-          //    }
-          // }
-
-        }
-
-
-      }
-    }
-
-
-    return null
   }
+
+  return null;
+};
+
+export const SwitchManager: React.FC<any> = ({
+  assetSliderState,
+  switchMeshStates,
+}) => {
+  const { partDisable, disableList, curPartsId } = switchMeshStates;
+
+  const scene = useScene();
+
+  if (partDisable.flag) {
+    saSceneSetter(
+      scene,
+      disableList,
+      partDisable,
+      curPartsId[assetSliderState.part].jpId
+    );
+  }
+
+  // Why? : MeshLoad
+  // saMeshLoaded(scene)
+
+  return null;
+};
+
+export const MeshSceneCounter = () => {
+  let scene = useScene();
+  let sceneNodes = scene?.rootNodes;
+
+  // for (let nodes of sceneNodes!){
+  //   console.log("nodes ",nodes)
+
+  // }
+  for (let i = 0; i < sceneNodes!.length; i++) {
+    if (
+      (sceneNodes![i].getClassName() === "Mesh" &&
+        sceneNodes![i].name.includes("L")) ||
+      sceneNodes![i].name.includes("A")
+    ) {
+      console.log(sceneNodes![i].name);
+    }
+  }
+
+  return null;
+};
+
+export const SceneTextureManager: React.FC<any> = ({
+  matDefualtCurData,
+  matState,
+}) => {
+  let scene = useScene();
+  console.log(matDefualtCurData);
+
+  if (matState.state) {
+    JCMatLoad(scene, matState.matType, matState.matMaps, matState.matOver);
+  }
+
+  return null;
+};
+
+const ArtworkLogoManager = () => {
+  let scene = useScene();
+  let sceneNodes = scene?.rootNodes;
+
+  // for (let nodes of sceneNodes!){
+  //   console.log("nodes ",nodes)
+
+  // }
+  for (let i = 0; i < sceneNodes!.length; i++) {
+    if (
+      (sceneNodes![i].getClassName() === "Mesh" &&
+        sceneNodes![i].name.includes("L")) ||
+      sceneNodes![i].name.includes("A")
+    ) {
+      // console.log(sceneNodes![i].name)
+      if (sceneNodes![i].name.includes("fr")) {
+        let mesh = sceneNodes![i];
+        let panel = sceneNodes![i].getChildren()[0];
+        console.log(panel);
+        console.log(mesh);
+        let p = panel as any;
+
+        var decalMaterial = new StandardMaterial("decalMat", scene!);
+        decalMaterial.diffuseTexture = new Texture(
+          "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Hardware/ZipperPuller/mth-zpp-blk-s1/metal_normal.png",
+          scene!
+        );
+        decalMaterial.diffuseTexture.hasAlpha = true;
+
+        (decalMaterial.diffuseTexture as any).vAng = Math.PI;
+
+        var decal = MeshBuilder.CreateDecal("decal", p, {
+          position: new Vector3(0, 7, -0.01),
+          normal: new Vector3(0, 0, -1),
+          size: new Vector3(1, 1, 1),
+        });
+        decal.material = decalMaterial;
+      }
+    }
+  }
+
+  return null;
+};
+
+const ArtworkManager = ({ artworkState }) => {
+  const onDecalMaterial = (artworkPath, scene) => {
+    var decalMaterial = new BABYLON.PBRMetallicRoughnessMaterial(
+      "decalMat",
+      scene
+    );
+    decalMaterial.baseTexture = new BABYLON.Texture(artworkPath, scene);
+    decalMaterial.baseTexture.hasAlpha = true;
+    (decalMaterial.baseTexture as any).vAng = Math.PI;
+    decalMaterial.metallic = 0;
+    return decalMaterial;
+  };
+
+  const onDecalBuilder = (mesh, artPosition) => {
+    let decal;
+    if (artPosition === "Left Chest") {
+      decal = BABYLON.MeshBuilder.CreateDecal("decal", mesh, {
+        position: new BABYLON.Vector3(-0.4, 7.6, 0.001),
+        normal: new BABYLON.Vector3(0, 0, -1),
+        size: new BABYLON.Vector3(1, 1, 1),
+      });
+    } else if (artPosition === "Back") {
+      decal = BABYLON.MeshBuilder.CreateDecal("decal", mesh, {
+        position: new BABYLON.Vector3(0, 7.3, 0),
+        normal: new BABYLON.Vector3(0, 0, 1),
+        size: new BABYLON.Vector3(2, 2, 2),
+      });
+    }
+
+    return decal;
+  };
+
+  let scene = useScene();
+  let sceneNodes = scene?.rootNodes;
+
+  // for (let nodes of sceneNodes!){
+  //   console.log("nodes ",nodes)
+
+  // }
+  for (let i = 0; i < sceneNodes!.length; i++) {
+    if (
+      (sceneNodes![i].getClassName() === "Mesh" &&
+        sceneNodes![i].name.includes("L")) ||
+      sceneNodes![i].name.includes("A")
+    ) {
+      // console.log(sceneNodes![i].name)
+      if (sceneNodes![i].name.includes("fr")) {
+        let mesh = sceneNodes![i];
+        let panel = sceneNodes![i].getChildren()[0];
+        console.log(panel);
+        console.log(mesh);
+        let p = panel as any;
+        console.log(artworkState.position);
+
+        let decal = onDecalBuilder(p, "Left Chest");
+        decal.material = onDecalMaterial(
+          "https://hesh-configurator-3d.s3.ap-south-1.amazonaws.com/Materials/Hardware/ZipperPuller/mth-zpp-blk-s1/metal_normal.png",
+          scene
+        );
+
+        // for (let nodes of sceneNodes!){
+        //    if(nodes.name ==="decal"){
+        //     (nodes as any).absolutePosition.z=0
+        //     console.log("decal ",(nodes as any).absolutePosition)
+        //    }
+        // }
+      }
+    }
+  }
+
+  return null;
+};
+
+const ArtworkLogoManagerTest = ({artworkState}) => {
+
+  let mt:Mesh;
+  let scene = useScene();
+
+
+  let sceneNodes = scene?.rootNodes;
+
+  // for (let nodes of sceneNodes!){
+  //   console.log("nodes ",nodes)
+
+  // }
+  for (let i = 0; i < sceneNodes!.length; i++) {
+    if (
+      (sceneNodes![i].getClassName() === "Mesh" &&
+        sceneNodes![i].name.includes("L")) ||
+      sceneNodes![i].name.includes("A")
+    ) {
+      // console.log(sceneNodes![i].name)
+      if (sceneNodes![i].name.includes(artworkState.part)) {
+        let mesh = sceneNodes![i];
+        let panel = sceneNodes![i].getChildren()[0];
+        console.log(panel);
+        console.log(mesh);
+        let p = panel as any;
+        mt=p
+
+        var decalMaterial = new PBRMetallicRoughnessMaterial("decalMat",scene!);
+        decalMaterial.baseTexture = new Texture(artworkState.imgFile, scene!);
+        decalMaterial.baseTexture.hasAlpha = true;
+        (decalMaterial.baseTexture as any).vAng = Math.PI;
+        decalMaterial.metallic = 0;
+        decalMaterial.zOffset = -2;
+
+        
+      
+        var decal = MeshBuilder.CreateDecal("decal", p, {
+          position: new Vector3(-0.4, 7.6, 0.001),
+          normal: new Vector3(0, 0, -1),
+          size: new Vector3(1, 1, 1),
+          // localMode:true
+        })
+
+        decal.material = decalMaterial;
+
+
+
+      }
+    }
+  }
+
+  
+
+
+
+
+
+
+
+
+
+
+    
+  return null;
+};
+const ArtworkLogoManagerTest1 = ({artworkState}) => {
+
+  let mt:Mesh;
+  let scene = useScene();
+
+
+  let sceneNodes = scene?.rootNodes;
+
+  // for (let nodes of sceneNodes!){
+  //   console.log("nodes ",nodes)
+
+  // }
+  let mp =sceneNodes![3].getChildren()[0]
+
+
+        var textureResolution = 512;
+        var textureGround = new DynamicTexture("dynamic texture", textureResolution, scene);   
+        var textureContext = textureGround.getContext();
+
+        // var materialGround = new StandardMaterial("Mat", scene!);    				
+        // materialGround.diffuseTexture = textureGround;
+     
+
+        var writingPlane = (mp as any).clone("writingPlane");
+        writingPlane.parent = mp;
+
+
+
+       let img =document.getElementById('artLogo')!
+//        img!.onload=function(){
+//         textureContext.drawImage(this, 100, 100);
+//         textureGround.update();	
+//        }
+
+//        var mat = new StandardMaterial("mat", scene!);
+
+// // dynamicTexture.wAng=Math.PI;
+// mat.diffuseTexture = textureGround;
+// mat.diffuseTexture.hasAlpha = true;
+
+
+// writingPlane.material = mat;
+
+      //  textureContext.drawImage(this, 100, 100);
+      //  textureGround.update();	
+        
+        // var img = new Image();
+        // img.src = 'textures/grass.png';
+        // img.onload = function() {
+        //       //Add image to dynamic texture
+        
+        
+     
+        
+
+
+
+      
+    
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+    
+  return null;
+};

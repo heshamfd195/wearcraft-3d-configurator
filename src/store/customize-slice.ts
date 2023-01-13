@@ -145,7 +145,10 @@ _matOptions:{
 
 _artworklogoState:{
   position:"left Chest",
-  part:"fr"
+  part:"fr",
+  imgFile:"",
+  flag:false,
+  decal:"leftchest"
 }
 
 };
@@ -318,6 +321,11 @@ const customizeSlice = createSlice({
     _updateArtworkPos(state,action){
       state._artworklogoState.position=action.payload
 
+    },
+    _loadArtwork(state,action){
+      let data=action.payload
+      state._artworklogoState.imgFile=data.imgFile
+      state._artworklogoState.flag=true
     },
     
 

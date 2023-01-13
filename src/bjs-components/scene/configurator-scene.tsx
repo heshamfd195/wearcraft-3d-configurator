@@ -588,12 +588,45 @@ const ArtworkLogoManagerTest = ({artworkState}) => {
   let scene = useScene();
 
 
+  //remove decal
+  let position:any;
+  let normal:any
+  let size:any
+ 
+  if(artworkState.decal ==='Left Chest'){
+    position =new Vector3(-0.4, 7.6, 0.001)
+    normal =new Vector3(0, 0, -1)
+    size=new Vector3(1, 1, 1)
+  }
+  else if(artworkState.decal ==='Right Chest'){
+    position =new Vector3(0.4, 7.6, 0.001)
+    normal=new Vector3(0, 0, -1)
+    size=new Vector3(1, 1, 1)
+  }
+  else if(artworkState.decal ==='Back'){
+    console.log("bk runs")
+    position =new Vector3(0, 7.5, 0.001)
+    normal =new Vector3(0, 0, 1)
+    size=new Vector3(2, 2, 2)
+  }
+  else if(artworkState.decal ==='Right Arm'){
+    position =new Vector3(0.4, 7.6, 0.001)
+    normal =new Vector3(0, 0, 1)
+    size=new Vector3(2, 2, 2)
+  }
+  else if(artworkState.decal ==='Left  Arm'){
+    position =new Vector3(0, 0, 0.001)
+  }
+
   let sceneNodes = scene?.rootNodes;
 
-  // for (let nodes of sceneNodes!){
-  //   console.log("nodes ",nodes)
+  for (let i = 0; i < sceneNodes!.length; i++) {
+    if(sceneNodes![i].name===artworkState.decal){
+      sceneNodes![i].dispose()
+    }
+  }
 
-  // }
+
   for (let i = 0; i < sceneNodes!.length; i++) {
     if (
       (sceneNodes![i].getClassName() === "Mesh" &&
@@ -602,14 +635,28 @@ const ArtworkLogoManagerTest = ({artworkState}) => {
     ) {
       // console.log(sceneNodes![i].name)
       if (sceneNodes![i].name.includes(artworkState.part)) {
-        let mesh = sceneNodes![i];
-        let panel = sceneNodes![i].getChildren()[0];
-        console.log(panel);
-        console.log(mesh);
-        let p = panel as any;
-        mt=p
+        let p:any
+        if(sceneNodes![i].name.includes('fr') || sceneNodes![i].name.includes('bk')){
+          let mesh = sceneNodes![i];
+          let panel = sceneNodes![i].getChildren()[0];
+          console.log(panel);
+           p = panel as any;
 
-        var decalMaterial = new PBRMetallicRoughnessMaterial("decalMat",scene!);
+        }
+
+        if(sceneNodes![i].name.includes('sl') ){
+          let mesh = sceneNodes![i];
+          let panel = sceneNodes![i].getChildren()[0];
+          console.log(panel);
+           p = panel as any;
+        }
+      
+       
+
+
+        
+
+        var decalMaterial = new PBRMetallicRoughnessMaterial(`${artworkState.decal} Mat`,scene!);
         decalMaterial.baseTexture = new Texture(artworkState.imgFile, scene!);
         decalMaterial.baseTexture.hasAlpha = true;
         (decalMaterial.baseTexture as any).vAng = Math.PI;
@@ -618,10 +665,11 @@ const ArtworkLogoManagerTest = ({artworkState}) => {
 
         
       
-        var decal = MeshBuilder.CreateDecal("decal", p, {
-          position: new Vector3(-0.4, 7.6, 0.001),
-          normal: new Vector3(0, 0, -1),
-          size: new Vector3(1, 1, 1),
+        var decal = MeshBuilder.CreateDecal(artworkState.decal, p, {
+          position: position,
+          normal: normal,
+          size: size,
+          // cullBackFaces:true
           // localMode:true
         })
 

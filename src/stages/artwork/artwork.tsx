@@ -4,6 +4,7 @@ import { useScreenSize } from "../../hooks/get-screen-size";
 import { Button } from "../../ui-components/core/buttons/Button";
 import DropDownOptions from "../../ui-components/stateful/dropdown/drop-down-options";
 import UploadAndDisplayImage from "./loadArtwork";
+import { customizeActions } from "../../store/customize-slice";
 
 const list= [
   { name: "Request",value:"request"},
@@ -15,7 +16,8 @@ const list= [
 
 
 
-let data2 = ["left Chest", "Back"];
+let data2 = ["Left Chest","Right Chest" ,"Back"];
+// let data = [{name:"Left Chest",pos:"leftChest"},{name:"Right Chest",pos:"rightChest"},{name:"Back",pos:"back"}];
 
 const Artwork = () => {
 
@@ -59,7 +61,50 @@ export const StyleList: React.FC<any> = () => {
   const onSelected=(val:any)=>{
     console.log("value ",val)
 
-   //  dispatch(customizeActions._updateMatOver(val))
+    switch(val){
+    case 'Left Chest':
+         let state1 ={
+          decal:val,
+          part:'fr',
+          mat:'fr'
+         }
+         dispatch(customizeActions._loadArtworkState(state1))
+      break
+    case 'Right Chest':
+      let state2 ={
+        decal:val,
+        part:'fr',
+        mat:'fr'
+       }
+       dispatch(customizeActions._loadArtworkState(state2))
+      break
+    case 'Back':
+      let state3 ={
+        decal:val,
+        part:'bk',
+        mat:'bk'
+       }
+       dispatch(customizeActions._loadArtworkState(state3))
+      break
+    case 'Left Arm':
+      let state4 ={
+        decal:val,
+        part:'sl',
+        mat:'panel_sl'
+       }
+       dispatch(customizeActions._loadArtworkState(state4))
+        break
+    case 'Right Arm':
+      let state5 ={
+        decal:val,
+        part:'sl',
+        mat:'panel_sr'
+       }
+       dispatch(customizeActions._loadArtworkState(state5))
+        break
+    }
+
+ 
    }
 
   //   const [l, ls] = useState(list);
@@ -94,12 +139,13 @@ export const StyleList: React.FC<any> = () => {
 
       })}
 
-{isLogo && < SelectMat label={'Artwork Position'} data={data2} initial={'left Chest'} id="leatherPlaceDropDown" onValue={onSelected}/>}
+{isLogo && < SelectMat label={'Artwork Position'} data={data2} initial={'Left Chest'} id="leatherPlaceDropDown" onValue={onSelected}/>}
+{isLogo &&  <UploadAndDisplayImage/>}
       
       {/* {dList?.map((button: any, index: number) => {
         return <Select key={index} options={button.options} defaultInputValue={button.name} />
       })} */}
-      <UploadAndDisplayImage/>
+     
 
 
 

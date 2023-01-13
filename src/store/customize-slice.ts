@@ -148,7 +148,10 @@ _artworklogoState:{
   part:"fr",
   imgFile:"",
   flag:false,
-  decal:"leftchest"
+  decal:"Left Chest",
+  remove:false,
+  load:false,
+  mat:'',
 }
 
 };
@@ -327,6 +330,16 @@ const customizeSlice = createSlice({
       state._artworklogoState.imgFile=data.imgFile
       state._artworklogoState.flag=true
     },
+
+    _loadArtworkState(state,action){
+      let data=action.payload
+  
+      state._artworklogoState.decal=data.decal
+      state._artworklogoState.part=data.part
+      state._artworklogoState.mat=data.mat
+
+    },
+
     
 
    

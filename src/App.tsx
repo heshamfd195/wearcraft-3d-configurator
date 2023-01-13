@@ -14,6 +14,8 @@ import CustomizeTemp from "./stages/customize/customize.temp1";
 import Preview from "./stages/preview/preview";
 import CustomizeContainer from "./stages/customize/customize.container";
 import SceneAPI from "./bjs-components/scene/scene-api";
+import { Request1 } from "./stages/request/request";
+import Submit from "./pages/submit/submit";
 
 // store.subscribe(()=> console.log(store.getState()));
 
@@ -36,8 +38,8 @@ function App() {
           <Route path="*" element={<h1>Page Not Found</h1>} />
         </Route>
        
-        <Route path="submit" element={<h1>Submit</h1>} />
-        <Route path="request" element={<h1>Request</h1>} />
+        <Route path="submit" element={<Submit/>} />
+        <Route path="request" element={<Request1/>} />
       </Routes>
       </PersistGate>
       </Provider>

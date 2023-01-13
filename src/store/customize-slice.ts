@@ -43,6 +43,12 @@ const initialState = {
     waistPockets:{
       jpId:'',
     },
+    chestPockets:{
+      jpId:'',
+    },
+    shoulder:{
+      jpId:'',
+    },
     cuffs:{
       jpId:'',
     }

@@ -10,7 +10,6 @@ const initialAppState = {
         { name: "Sleeves", selected: false ,id:"sleeves"},
         { name: "Waist Pockets", selected: false ,id:"waistPockets"},
         { name: "Chest Pockets", selected: false ,id:"chestPockets"},
-        { name: "Cuffs", selected: false ,id:"cuffs"},
         { name: "Shoulder", selected: false ,id:"shoulder"},
         { name: "Hem", selected: false ,id:"hem"},
       

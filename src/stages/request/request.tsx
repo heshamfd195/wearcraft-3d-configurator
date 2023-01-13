@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '../../ui-components/core/buttons/Button'
 import { useNavigate } from 'react-router-dom'
 
-export const Request = () => {
+export const Request1 = () => {
     const navigate =useNavigate()
   return (
     <div className="items-center flex flex-col space-y-5 my-10">

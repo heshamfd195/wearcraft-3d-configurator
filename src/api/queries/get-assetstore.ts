@@ -43,6 +43,12 @@ export const getAssetStore: any = createApi({
     mcrParts:builder.query<any,string>({
         query:(id)=>`/mcr-parts/${id}`
     }),
+    mbrParts:builder.query<any,string>({
+      query:(id)=>`/mbr-parts/${id}`
+  }),
+    jParts:builder.query<any,string>({
+      query:(param:any)=>`/${param.base}-parts/${param.part}`
+  }),
   }),
 });
 
@@ -55,7 +61,9 @@ export const {
   useAssetColorSliderQuery,
   useSceneSettingQuery,
   useMatDefaultQuery,
-  useMcrPartsQuery
+  useMcrPartsQuery,
+  useMbrPartsQuery,
+  useJPartsQuery
   
   
 } = getAssetStore;

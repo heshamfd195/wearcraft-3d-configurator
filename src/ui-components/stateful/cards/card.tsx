@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import appSlice, { appStateActions } from "../../../store/app-slice";
 import { useScreenSize } from "../../../hooks/get-screen-size";
+import { customizeActions } from "../../../store/customize-slice";
 
 const Card: FC<any> = ({ title,url,id }) => {
   const navigate =useNavigate()
@@ -11,6 +12,8 @@ const Card: FC<any> = ({ title,url,id }) => {
   const onCardClick=()=>{
     navigate("/scene")
     dispatch(appStateActions._setBase({id:id,isFetched:true}))
+    dispatch(customizeActions._updateAssetSliderBase(id.spilt("-")[0]))
+    // dispatch(customizeActions._updateAssetSliderBase("mbr"))
   }
 
   return (

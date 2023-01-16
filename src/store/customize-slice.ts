@@ -18,7 +18,8 @@ const initialState = {
     isProcessed:false
   },
   _assetSliderState:{
-    part:"front"
+    part:"front",
+    base:"mcr"
   },
 
   currParts:{
@@ -187,6 +188,9 @@ const customizeSlice = createSlice({
     },
     _updateAssetSlider(state,action){
       state._assetSliderState.part=action.payload
+    },
+    _updateAssetSliderBase(state,action){
+      state._assetSliderState.base=action.payload
     },
 
     _jpAddMeshLoader(state,action){

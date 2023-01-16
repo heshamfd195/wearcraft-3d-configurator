@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "../../App.css";
 import AssetCard from "./asset-card";
 import { useScreenSize } from "../../hooks/get-screen-size";
-import { useMcrPartsQuery } from "../../api/queries/get-assetstore";
+import { useJPartsQuery, useMcrPartsQuery } from "../../api/queries/get-assetstore";
 import { useSelector } from "react-redux";
 
 // const data = [
@@ -47,7 +47,7 @@ export const AssetSlider = () => {
     (state: any) => state.customizeState._assetSliderState
   );
   const { isMobile } = useScreenSize();
-  const { data, isSuccess } = useMcrPartsQuery(assetSliderState.part);
+  const { data, isSuccess } = useJPartsQuery(assetSliderState);
 
   const settings = {
     dots: false,

@@ -6,11 +6,7 @@ import Select from 'react-select'
 import { customizeActions } from "../../../store/customize-slice";
 
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-]
+
 
 export const StyleList: FC<any> = () => {
   const { style } = useSelector((state: any) => state.appState._customize)

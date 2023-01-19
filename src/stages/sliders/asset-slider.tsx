@@ -61,7 +61,7 @@ export const AssetSlider = () => {
     <div className="">
       <Slider {...settings}>
         {isSuccess &&
-          data[0].parts?.map((part: any, index: number) => {
+          data?.map((part: any, index: number) => {
             return (
               <AssetCard
                 name={part.jpId}

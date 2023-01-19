@@ -47,7 +47,7 @@ export const getAssetStore: any = createApi({
       query:(id)=>`/mbr-parts/${id}`
   }),
     jParts:builder.query<any,string>({
-      query:(param:any)=>`/${param.base}-parts/${param.part}`
+      query:(param:any)=>`/jacket-parts/${param.base}/${param.part}`
   }),
   }),
 });
@@ -63,7 +63,8 @@ export const {
   useMatDefaultQuery,
   useMcrPartsQuery,
   useMbrPartsQuery,
-  useJPartsQuery
+  useJPartsQuery,
+  
   
   
 } = getAssetStore;

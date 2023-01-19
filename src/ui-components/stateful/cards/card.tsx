@@ -12,7 +12,7 @@ const Card: FC<any> = ({ title,url,id }) => {
   const onCardClick=()=>{
     navigate("/scene")
     dispatch(appStateActions._setBase({id:id,isFetched:true}))
-    dispatch(customizeActions._updateAssetSliderBase(id.spilt("-")[0]))
+    dispatch(customizeActions._updateAssetSliderBase(id.split("-")[0]))
     // dispatch(customizeActions._updateAssetSliderBase("mbr"))
   }
 

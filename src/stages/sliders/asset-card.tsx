@@ -61,12 +61,17 @@ const AssetCard: FC<any> = ({ name, id, url ,partData,partName}) => {
   }
   
   return (
+    <div>
+      <p className="text-md ">{name}</p>
     <img
       src={url}
       alt={name}
       className="mobile:w-[90%] w-[55%] bg-white"
       onClick={onSwitchPart}
-    ></img>
+    >
+    </img>
+    
+    </div>
   );
 };
 

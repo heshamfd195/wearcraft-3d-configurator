@@ -105,6 +105,9 @@ const initialState = {
      },
      waistPockets:{
        jpId:'',
+     },
+     shoulder:{
+       jpId:'',
      }
     },
     partDisable:{

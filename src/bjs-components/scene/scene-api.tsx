@@ -47,8 +47,10 @@ const SceneAPI = () => {
         collar: [] as IPMeshTask[],
         sleeves: [] as IPMeshTask[],
         waistPockets: [] as IPMeshTask[],
+        chestPockets: [] as IPMeshTask[],
         closureZipper: [] as IPMeshTask[],
         hem: [] as IPMeshTask[],
+        shoulder: [] as IPMeshTask[],
         cuffs: [] as IPMeshTask[],
       };
       data[0].jParts.map((parts: any) => {
@@ -85,7 +87,13 @@ const SceneAPI = () => {
         waistPockets:{
           jpId:'',
         },
+        chestPockets:{
+          jpId:'',
+        },
         cuffs:{
+          jpId:'',
+        },
+        shoulder:{
           jpId:'',
         },
       }
